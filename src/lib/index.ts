@@ -4,6 +4,7 @@ import {
 
 export * from './hooks';
 export * from './types';
+export * from './utils';
 
 export {
 	parseParams, parseSearch, createLocation, 
