@@ -24,6 +24,23 @@ or NPM:
 npm install @resourge/react-hook-table --save
 ```
 
+## (optional) Setup navigation
+
+By default, `@resourge/react-hook-table` uses native javascript history to update the URL. This can create a problem with packages that don't connect to native javascript history, for example `react-router`.
+
+To fix this do:
+
+```Typescript
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory();
+
+// This functions connects the @resourge/react-hook-table to the react-router history
+setDefaultNavigation(({ location }) => history.replace(location.path))
+```
+
+This connects `react-router` navigation with `@resourge/react-hook-table` 
+
 ## Usage
 
 ```Typescript
