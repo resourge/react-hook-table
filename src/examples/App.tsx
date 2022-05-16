@@ -27,7 +27,6 @@ function App() {
 	const [_, setRandom2] = useState(Math.random);
 
 	const manually = handleTable((params) => {
-		console.log('handleTable params', JSON.stringify(params, null, 4))
 		reset(
 			{ 
 				products: [
@@ -37,8 +36,6 @@ function App() {
 			10
 		);
 	}, [random])
-
-	console.log('random', random)
 
 	return (
 		<>
