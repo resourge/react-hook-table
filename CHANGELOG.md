@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/resourge/react-hook-table/compare/v1.1.0...v1.1.1) (2022-05-16)
+
+
+### Bug Fixes
+
+* **src/lib/index.ts:** add export form utils ([2009a87](https://github.com/resourge/react-hook-table/commit/2009a8797aa963708c6bffa519957365d49a9eed))
+
 # [1.1.0](https://github.com/resourge/react-hook-table/compare/v1.0.0...v1.1.0) (2022-05-16)
 
 
