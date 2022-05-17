@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/resourge/react-hook-table/compare/v1.1.4...v1.1.5) (2022-05-17)
+
+
+### Bug Fixes
+
+* **usetable:** fix comparison with nAN's ([37a7c02](https://github.com/resourge/react-hook-table/commit/37a7c02207b0b2f52fc652d33de45ded14d697cb))
+
 ## [1.1.4](https://github.com/resourge/react-hook-table/compare/v1.1.3...v1.1.4) (2022-05-17)
 
 
