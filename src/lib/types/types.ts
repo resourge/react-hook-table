@@ -1,6 +1,6 @@
 import { UseURLControllerConfig } from '../hooks/useURLController'
 
-import { PaginationCriteria, PaginationController } from './RequestPagination'
+import { PaginationCriteria, PaginationController } from './PaginationController'
 import { OrderByEnum, SortCriteria } from './SortCriteria'
 
 export type SearchParamsFunctions<T extends Record<string, any>> = {
@@ -99,18 +99,6 @@ export type UrlController<
 // #endregion useURLController
 
 // #region useTable
-export type BaseTableState<
-	State extends Record<string, any>,	
-	Order, 
-	Filter extends Record<string, any>, 
-	ExtraFunctions extends { [key: string]: Function } = { [key: string]: Function }
-> = [
-	UrlController<Order, Filter>[0] & State,
-	UrlController<Order, Filter>[1] & {
-		setTotalItems: (totalItems?: number) => void
-	} & ExtraFunctions
-]
-
 export type HandleTableParams<
 	Order, 
 	Filter extends Record<string, any>
@@ -135,9 +123,9 @@ export type TableState<
 		 * Handles the server request to populate the table.
 		 */
 		handleTable: (
-			setTable: (config: HandleTableParams<Order, Filter>) => Promise<void> | void, 
+			setTable: (config: HandleTableParams<Order, Filter>) => void | Promise<void>, 
 			deps?: React.DependencyList
-		) => () => void
+		) => () => Promise<void>
 	}
 ]
 

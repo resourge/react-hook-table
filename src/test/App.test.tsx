@@ -52,4 +52,43 @@ function replacer(key: string, value: any) {
 }
 console.log('a', JSON.parse(JSON.stringify(object1, replacer)))
 console.log('object1 === objectParam', dequal(JSON.parse(JSON.stringify(object1, replacer)), objectParam))
+
+import { RequestPagination } from '../../hooks/useTable';
+
+test('RequestPagination', () => {
+	const pagination = new RequestPagination();
+    
+	expect(RequestPagination.resetPagination(pagination.page, pagination.perPage, pagination.totalItems)).toMatchObject(new RequestPagination())
+
+	const perPage = 100;
+	const page = 100;
+	const totalItems = 100;
+
+	pagination.perPage = perPage;
+
+	expect(pagination.criteria).toMatchObject({
+		page: 0,
+		perPage: perPage
+	})
+
+	pagination.page = page;
+
+	expect(pagination.criteria.page).toBe(page)
+    
+	pagination.setPaginationByOutputPagination({
+		pageNumber: 0,
+		pageSize: 10,
+		totalItems: totalItems
+	})
+
+	expect(pagination.totalItems).toBe(totalItems)
+    
+	pagination.setPaginationByOutputPagination({
+		pageNumber: 0,
+		pageSize: 10
+	})
+
+	expect(pagination.totalItems).toBe(0)
+})
+
 */

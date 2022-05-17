@@ -72,8 +72,8 @@ export const useTable = <
 			depsRef.current = newDeps;
 		}
 
-		return () => {
-			request({
+		return async () => {
+			await request({
 				pagination,
 				sort,
 				filter

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { useMemo, useRef } from 'react'
 
-import { PaginationController } from '../types/RequestPagination'
+import { PaginationController } from '../types/PaginationController'
 import { DefaultURLControllerSearchParams, DefaultTableSearchParams, UrlController } from '../types/types';
 
 import { useTableSearchParams, UseTableSearchParamsConfig } from './useTableSearchParams';

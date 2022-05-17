@@ -1,20 +1,20 @@
 import type { 
 	PaginationCriteria
-} from './RequestPagination';
+} from './PaginationController';
 import { 
 	PaginationController
-} from './RequestPagination';
+} from './PaginationController';
 import { OrderByEnum } from './SortCriteria';
 import type { SortCriteria } from './SortCriteria';
 import type {
-	BaseTableState, DefaultURLControllerSearchParams, 
+	DefaultURLControllerSearchParams, 
 	SearchParamsFunctions,
 	TableSearchParams, DefaultTableSearchParams, 
 	TableState, UrlController
 } from './types';
 
 export {
-	PaginationController as RequestPagination,
+	PaginationController,
 	OrderByEnum
 };
 
@@ -22,7 +22,6 @@ export type {
 	PaginationCriteria,
 	
 	SortCriteria,
-	BaseTableState, 
 	DefaultURLControllerSearchParams, 
 	SearchParamsFunctions,
 	TableSearchParams, 
