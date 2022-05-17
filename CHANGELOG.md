@@ -1,3 +1,11 @@
+## [1.1.4](https://github.com/resourge/react-hook-table/compare/v1.1.3...v1.1.4) (2022-05-17)
+
+
+### Bug Fixes
+
+* **usetable:** improve number comparission ([4f209b4](https://github.com/resourge/react-hook-table/commit/4f209b4a1f30ca677d53438ccba185f904d71a89))
+* **usetable:** remove unecessary filter ([8044a38](https://github.com/resourge/react-hook-table/commit/8044a383fda67a3ce88d9d0474de80e54e198582))
+
 ## [1.1.3](https://github.com/resourge/react-hook-table/compare/v1.1.2...v1.1.3) (2022-05-17)
 
 
