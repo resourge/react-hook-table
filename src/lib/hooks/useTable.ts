@@ -57,7 +57,7 @@ export const useTable = <
 	) => {
 		requestRef.current = request;
 		const newDeps: any[] = [
-			...(deps ?? []).filter((value) => !isNaN(value as any)),
+			...(deps ?? []),
 			filter, 
 			pagination.criteria, 
 			sort
