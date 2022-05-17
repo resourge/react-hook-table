@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/resourge/react-hook-table/compare/v1.1.1...v1.1.2) (2022-05-17)
+
+
+### Bug Fixes
+
+* **paginationcontroller:** fix pagination controller naming being diferent from the .d.ts file ([35d1628](https://github.com/resourge/react-hook-table/commit/35d16281d41dad87b714cb68516bb9e3503976ad))
+
 ## [1.1.1](https://github.com/resourge/react-hook-table/compare/v1.1.0...v1.1.1) (2022-05-16)
 
 
