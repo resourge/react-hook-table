@@ -4,6 +4,10 @@ import { DefaultURLControllerSearchParams, HandleTableParams, TableState } from 
 
 import { useURLController } from './useURLController';
 
+function booleanCompare(a: boolean, b: boolean): boolean {
+	return !(Number(a) - Number(b));
+}
+
 export const useTable = <
 	State extends Record<string, any>,
 	Order = any,
@@ -52,8 +56,8 @@ export const useTable = <
 		deps?: React.DependencyList
 	) => {
 		requestRef.current = request;
-		const newDeps = [
-			...(deps ?? []),
+		const newDeps: any[] = [
+			...(deps ?? []).filter((value) => !isNaN(value as any)),
 			filter, 
 			pagination.criteria, 
 			sort
@@ -61,7 +65,12 @@ export const useTable = <
 
 		if ( 
 			depsRef.current.length !== newDeps.length ||
-			depsRef.current.some((dep, index) => dep !== newDeps[index])
+			depsRef.current.some((dep, index) => {
+				const newDep = newDeps[index]
+				return dep !== newDep || 
+				!(isNaN(dep) && isNaN(newDep)) || 
+				(typeof dep === 'boolean' && typeof newDep === 'boolean' && !booleanCompare(dep, newDep))
+			})
 		) {
 			request({
 				pagination,
