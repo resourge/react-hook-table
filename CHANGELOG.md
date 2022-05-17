@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/resourge/react-hook-table/compare/v1.1.2...v1.1.3) (2022-05-17)
+
+
+### Bug Fixes
+
+* **usetable:** improve comparison ([d6966b5](https://github.com/resourge/react-hook-table/commit/d6966b58958319abb163d9c4399636831e97c8f4))
+
 ## [1.1.2](https://github.com/resourge/react-hook-table/compare/v1.1.1...v1.1.2) (2022-05-17)
 
 
