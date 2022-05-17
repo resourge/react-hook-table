@@ -68,7 +68,7 @@ export const useTable = <
 			depsRef.current.some((dep, index) => {
 				const newDep = newDeps[index]
 				return dep !== newDep || 
-				!(isNaN(dep) && isNaN(newDep)) || 
+				(typeof dep === 'number' && typeof newDep === 'number' && !(isNaN(dep) && isNaN(newDep))) || 
 				(typeof dep === 'boolean' && typeof newDep === 'boolean' && !booleanCompare(dep, newDep))
 			})
 		) {
