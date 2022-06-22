@@ -1,6 +1,6 @@
 import { 
 	parseParams, useSearchParams as _useSearchParams,
-	SearchConfig, createNewLocationWithSearch
+	SearchConfig, createNewUrlWithSearch
 } from '@resourge/react-search-params';
 
 import { SearchParamsFunctions } from '../types/types';
@@ -20,7 +20,7 @@ export const useSearchParams = <T extends Record<string, any> = Record<string, a
 	const [
 		{ 
 			params,
-			location
+			url
 		}, 
 		setParams
 	] = _useSearchParams<T>(
@@ -34,7 +34,7 @@ export const useSearchParams = <T extends Record<string, any> = Record<string, a
 	const getPathWithSearch = (state: T) => {
 		const newSearch: string = parseParams(state);
 		
-		return createNewLocationWithSearch(location, newSearch, hash).path;
+		return createNewUrlWithSearch(url, newSearch, hash).href;
 	}
 
 	const setSearchParams = (setSearchParams: (searchParams: T) => void) => {

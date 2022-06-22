@@ -1,6 +1,6 @@
 import { SearchNavigate } from '@resourge/react-search-params';
 
-export let navigate: SearchNavigate = ({ location }) => window.history.replaceState(null, '', location.path)
+export let navigate: SearchNavigate = ({ url }) => window.history.replaceState(null, '', url.href)
 
 export const setDefaultNavigation = (newNavigate: SearchNavigate) => {
 	navigate = newNavigate;
