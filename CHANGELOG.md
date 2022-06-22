@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/resourge/react-hook-table/compare/v1.1.6...v1.1.7) (2022-06-22)
+
+
+### Bug Fixes
+
+* **package.json:** update package to fix a bug ([1ff3466](https://github.com/resourge/react-hook-table/commit/1ff34669db1923a41e244ed607d857404d8cfa16))
+
 ## [1.1.6](https://github.com/resourge/react-hook-table/compare/v1.1.5...v1.1.6) (2022-06-22)
 
 
