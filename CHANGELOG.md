@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/resourge/react-hook-table/compare/v1.1.5...v1.1.6) (2022-06-22)
+
+
+### Performance Improvements
+
+* **resourge/react-search-params:** update package ([537e9d4](https://github.com/resourge/react-hook-table/commit/537e9d4decb5c1bd83864727d560cd9761c1dc79))
+
 ## [1.1.5](https://github.com/resourge/react-hook-table/compare/v1.1.4...v1.1.5) (2022-05-17)
 
 
