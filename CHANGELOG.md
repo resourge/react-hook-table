@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/resourge/react-hook-table/compare/v1.1.8...v1.1.9) (2022-06-28)
+
+
+### Bug Fixes
+
+* **useurlcontroller:** when page is bigger than totalPages, reset page to 0 ([f66dc4c](https://github.com/resourge/react-hook-table/commit/f66dc4cd2e5305189511c71b9ff6157a851aad8d))
+
 ## [1.1.8](https://github.com/resourge/react-hook-table/compare/v1.1.7...v1.1.8) (2022-06-28)
 
 
