@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/resourge/react-hook-table/compare/v1.1.7...v1.1.8) (2022-06-28)
+
+
+### Bug Fixes
+
+* **pagination:** fix changing itemPerPage not reseting page to 0 ([a3b046c](https://github.com/resourge/react-hook-table/commit/a3b046c3644d3cba546ebf6843d89460f6bc49f2))
+
 ## [1.1.7](https://github.com/resourge/react-hook-table/compare/v1.1.6...v1.1.7) (2022-06-22)
 
 
