@@ -28,25 +28,10 @@ export class PaginationController {
 	}
 
 	/**
-	 * Number of items per page
-	 */
-	public set perPage(perPage: number) {
-		this.criteria.page = 0;
-		this.criteria.perPage = perPage;
-	}
-
-	/**
 	 * Current page
 	 */
 	public get page(): number {
 		return this.criteria.page;
-	}
-
-	/**
-	 * Current page
-	 */
-	public set page(page: number) {
-		this.criteria.page = page;
 	}
 
 	/**

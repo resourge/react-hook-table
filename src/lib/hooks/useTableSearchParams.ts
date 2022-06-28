@@ -42,6 +42,7 @@ export const useTableSearchParams = <
 	const changeItemsPerPage = (itemsPerPage: number) => {
 		setSearchParams((searchParams) => {
 			searchParams.perPage = itemsPerPage;
+			searchParams.page = 0;
 		});
 	};
     

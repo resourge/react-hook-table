@@ -56,8 +56,9 @@ export const useURLController = <
 		paginationRef.current.criteria.page !== page ||
 		paginationRef.current.criteria.perPage !== perPage
 	) {
+		const _page = page ?? 0
 		paginationRef.current.criteria = {
-			page: page ?? 0,
+			page: paginationRef.current.totalPages >= _page ? _page : 0,
 			perPage: perPage ?? 10
 		}
 	}
