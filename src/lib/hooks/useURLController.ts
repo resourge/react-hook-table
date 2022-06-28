@@ -37,7 +37,7 @@ export const useURLController = <
 		{
 			getPathWithSearch,
 			changePagination,
-
+			changePage,
 			...methods
 		}
 	] = useTableSearchParams<Order, Filter>(tableState, config);
@@ -56,10 +56,13 @@ export const useURLController = <
 		paginationRef.current.criteria.page !== page ||
 		paginationRef.current.criteria.perPage !== perPage
 	) {
-		const _page = page ?? 0
 		paginationRef.current.criteria = {
-			page: paginationRef.current.totalPages >= _page ? _page : 0,
+			page: page ?? 0,
 			perPage: perPage ?? 10
+		}
+
+		if ( paginationRef.current.totalPages < paginationRef.current.criteria.page ) {
+			changePage(0)
 		}
 	}
 
@@ -109,6 +112,7 @@ export const useURLController = <
 
 			getPathWithSearch,
 			changePagination,
+			changePage,
 			...methods
 		}
 	]
