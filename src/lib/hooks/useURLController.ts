@@ -2,11 +2,15 @@
 import { useMemo, useRef } from 'react'
 
 import { PaginationController } from '../types/PaginationController'
-import { DefaultURLControllerSearchParams, DefaultTableSearchParams, UrlController } from '../types/types';
+import { DefaultURLControllerSearchParams, DefaultTableSearchParams, UrlController, HandleTableParams } from '../types/types';
 
 import { useTableSearchParams, UseTableSearchParamsConfig } from './useTableSearchParams';
 
 export type UseURLControllerConfig = UseTableSearchParamsConfig
+
+function booleanCompare(a: boolean, b: boolean): boolean {
+	return !(Number(a) - Number(b));
+}
 
 export const useURLController = <
 	Order,
@@ -60,10 +64,6 @@ export const useURLController = <
 			page: page ?? 0,
 			perPage: perPage ?? 10
 		}
-
-		if ( paginationRef.current.totalPages < paginationRef.current.criteria.page ) {
-			changePage(0)
-		}
 	}
 
 	const sort = useMemo(() => orderBy && orderColumn ? {
@@ -84,19 +84,72 @@ export const useURLController = <
 		return url;
 	}
 
-	const reForceUpdate = () => {
-		paginationRef.current = PaginationController.resetPagination(
-			paginationRef.current.page,
-			paginationRef.current.perPage,
-			paginationRef.current.totalItems
-		);
-
-		changePagination(paginationRef.current.page, paginationRef.current.perPage);
-	};
-
 	const setTotalItems = (totalItems?: number) => {
 		paginationRef.current.totalItems = totalItems ?? 0;
+
+		if ( paginationRef.current.totalPages < paginationRef.current.criteria.page ) {
+			paginationRef.current.criteria.page = 0;
+			changePage(0)
+		}
 	}
+
+	const requestRef = useRef<(params: HandleTableParams<Order, Filter>) => void | Promise<void>>();
+
+	const depsRef = useRef<any[]>([]);
+
+	const handleTable = (
+		request: (params: HandleTableParams<Order, Filter>) => void | Promise<void>,
+		deps?: React.DependencyList
+	) => {
+		const pagination = paginationRef.current;
+
+		requestRef.current = request;
+		const newDeps: any[] = [
+			...(deps ?? []),
+			filter, 
+			pagination.criteria, 
+			sort
+		];
+
+		if ( 
+			depsRef.current.length !== newDeps.length ||
+			depsRef.current.some((dep, index) => {
+				const newDep = newDeps[index]
+				return !(
+					dep === newDep || 
+					(typeof dep === 'number' && typeof newDep === 'number' && (isNaN(dep) && isNaN(newDep))) ||
+					(typeof dep === 'boolean' && typeof newDep === 'boolean' && booleanCompare(dep, newDep))
+				)
+			})
+		) {
+			request({
+				pagination,
+				sort,
+				filter
+			});
+
+			depsRef.current = newDeps;
+		}
+
+		return async () => {
+			await request({
+				pagination,
+				sort,
+				filter
+			});
+		}
+	}
+
+	const reForceUpdate = () => {
+		if ( requestRef.current ) {
+			const pagination = paginationRef.current;
+			requestRef.current({
+				pagination,
+				sort,
+				filter
+			});
+		}
+	};
 	// #endregion Url Control
 	
 	return [
@@ -107,12 +160,13 @@ export const useURLController = <
 		},
 		{
 			getPaginationHref,
-			reForceUpdate,
 			setTotalItems,
 
 			getPathWithSearch,
 			changePagination,
 			changePage,
+			handleTable,
+			reForceUpdate,
 			...methods
 		}
 	]

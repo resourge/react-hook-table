@@ -86,14 +86,21 @@ export type UrlController<
 		 */
 		getPaginationHref: (page: number) => string
 		/**
-		 * Forces a table refresh
-		 */
-		reForceUpdate: () => void
-		/**
 		 * Sets number of total items.
 		 * * Note: Doesn't render the component
 		 */
 		setTotalItems: (totalItems?: number) => void
+		/**
+		 * Forces a table refresh
+		 */
+		reForceUpdate: () => void
+		/**
+		 * Handles the server request to populate the table.
+		 */
+		handleTable: (
+			setTable: (config: HandleTableParams<Order, Filter>) => void | Promise<void>, 
+			deps?: React.DependencyList
+		) => () => Promise<void>
 	} & TableSearchParams<Order, Filter>[1]
 ]
 // #endregion useURLController
@@ -119,13 +126,6 @@ export type TableState<
 		 * Resets the table data and total items.
 		 */
 		reset: (state: State, totalItems?: number) => void
-		/**
-		 * Handles the server request to populate the table.
-		 */
-		handleTable: (
-			setTable: (config: HandleTableParams<Order, Filter>) => void | Promise<void>, 
-			deps?: React.DependencyList
-		) => () => Promise<void>
 	}
 ]
 
