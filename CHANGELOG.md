@@ -1,3 +1,10 @@
+## [1.1.10](https://github.com/resourge/react-hook-table/compare/v1.1.9...v1.1.10) (2022-07-05)
+
+
+### Bug Fixes
+
+* **useurlcontroller:** fix reforceupdate not working ([36851e7](https://github.com/resourge/react-hook-table/commit/36851e724ad1d765676b76aa501829643e65800f))
+
 ## [1.1.9](https://github.com/resourge/react-hook-table/compare/v1.1.8...v1.1.9) (2022-06-28)
 
 
