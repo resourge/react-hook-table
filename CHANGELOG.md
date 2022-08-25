@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/resourge/react-hook-table/compare/v1.1.10...v1.1.11) (2022-08-25)
+
+
+### Bug Fixes
+
+* **useurlcontroller:** fix request being called more times that it needs ([519c749](https://github.com/resourge/react-hook-table/commit/519c7496d7005928ff02ee7ec6f6e6fa02a6081c))
+
 ## [1.1.10](https://github.com/resourge/react-hook-table/compare/v1.1.9...v1.1.10) (2022-07-05)
 
 
