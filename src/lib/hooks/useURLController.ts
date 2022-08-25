@@ -115,11 +115,20 @@ export const useURLController = <
 			depsRef.current.length !== newDeps.length ||
 			depsRef.current.some((dep, index) => {
 				const newDep = newDeps[index]
-				return !(
-					dep === newDep || 
-					(typeof dep === 'number' && typeof newDep === 'number' && (isNaN(dep) && isNaN(newDep))) ||
-					(typeof dep === 'boolean' && typeof newDep === 'boolean' && booleanCompare(dep, newDep))
-				)
+				if ( 
+					dep !== newDep && (
+						!(
+							typeof dep === 'number' && 
+							typeof newDep === 'number' && 
+							isNaN(dep) && isNaN(newDep)
+						)
+					) && (
+						!(typeof dep === 'boolean' && typeof newDep === 'boolean' && booleanCompare(dep, newDep))
+					)
+				) {
+					return true;
+				}
+				return false
 			})
 		) {
 			request({
