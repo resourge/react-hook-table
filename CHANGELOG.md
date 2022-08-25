@@ -1,3 +1,10 @@
+## [1.1.13](https://github.com/resourge/react-hook-table/compare/v1.1.12...v1.1.13) (2022-08-25)
+
+
+### Bug Fixes
+
+* **useurlcontroller:** fix handleTable dependencies ([8443cab](https://github.com/resourge/react-hook-table/commit/8443cabde9bb45bb03afb890770ce5c5cbb23098))
+
 ## [1.1.12](https://github.com/resourge/react-hook-table/compare/v1.1.11...v1.1.12) (2022-08-25)
 
 
