@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/resourge/react-hook-table/compare/v1.1.11...v1.1.12) (2022-08-25)
+
+
+### Bug Fixes
+
+* **useurlcontroller:** fix false === false being false ([9af4c39](https://github.com/resourge/react-hook-table/commit/9af4c3965b21447714f73694ba35d0295404b752))
+
 ## [1.1.11](https://github.com/resourge/react-hook-table/compare/v1.1.10...v1.1.11) (2022-08-25)
 
 
