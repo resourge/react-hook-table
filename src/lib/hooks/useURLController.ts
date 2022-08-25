@@ -8,7 +8,7 @@ import { useTableSearchParams, UseTableSearchParamsConfig } from './useTableSear
 
 export type UseURLControllerConfig = UseTableSearchParamsConfig
 
-function booleanCompare(a: boolean, b: boolean): boolean {
+function isBooleanEqual(a: boolean, b: boolean): boolean {
 	return !(Number(a) - Number(b));
 }
 
@@ -115,19 +115,18 @@ export const useURLController = <
 			depsRef.current.length !== newDeps.length ||
 			depsRef.current.some((dep, index) => {
 				const newDep = newDeps[index]
+				if ( dep !== newDep ) {
+					return true;
+				}
 				if ( 
-					dep !== newDep && (
-						!(
-							typeof dep === 'number' && 
-							typeof newDep === 'number' && 
-							isNaN(dep) && isNaN(newDep)
-						)
-					)
+					typeof dep === 'number' && 
+					typeof newDep === 'number' && 
+					(isNaN(dep) && isNaN(newDep))
 				) {
 					return true;
 				}
 				if ( 
-					!(typeof dep === 'boolean' && typeof newDep === 'boolean' && booleanCompare(dep, newDep))
+					(typeof dep === 'boolean' && typeof newDep === 'boolean' && !isBooleanEqual(dep, newDep))
 				) {
 					return true;
 				}
