@@ -122,9 +122,12 @@ export const useURLController = <
 							typeof newDep === 'number' && 
 							isNaN(dep) && isNaN(newDep)
 						)
-					) && (
-						!(typeof dep === 'boolean' && typeof newDep === 'boolean' && booleanCompare(dep, newDep))
 					)
+				) {
+					return true;
+				}
+				if ( 
+					!(typeof dep === 'boolean' && typeof newDep === 'boolean' && booleanCompare(dep, newDep))
 				) {
 					return true;
 				}
