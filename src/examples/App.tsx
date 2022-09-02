@@ -9,9 +9,7 @@ type Product = {
 
 function App() {
 	const [
-		{
-			products
-		},
+		{ products },
 		{
 			handleTable, changeItemsPerPage, reset
 		}
@@ -30,7 +28,10 @@ function App() {
 		reset(
 			{ 
 				products: [
-					{ id: Math.random(), name: 'Apple' }
+					{
+						id: Math.random(),
+						name: 'Apple' 
+					}
 				] 
 			}, 
 			10
@@ -50,7 +51,8 @@ function App() {
 			</button>
 			<button onClick={() => {
 				changeItemsPerPage(100)
-			}}>
+			}}
+			>
 				Change Items per page to 100
 			</button>
 			<table>
@@ -58,8 +60,14 @@ function App() {
 					{
 						products.map((product, index) => (
 							<tr key={`${index}`}>
-								<td>{ product.id } </td>
-								<td>{ product.name } </td>
+								<td>
+									{ product.id }
+									{' '}
+								</td>
+								<td>
+									{ product.name }
+									{' '}
+								</td>
 							</tr>
 						))
 					}
