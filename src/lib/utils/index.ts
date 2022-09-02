@@ -1,5 +1,3 @@
 import { setDefaultNavigation } from './setDefaultNavigation';
 
-export {
-	setDefaultNavigation
-}
+export { setDefaultNavigation }

@@ -2,7 +2,12 @@
 import { useMemo, useRef } from 'react'
 
 import { PaginationController } from '../types/PaginationController'
-import { DefaultURLControllerSearchParams, DefaultTableSearchParams, UrlController, HandleTableParams } from '../types/types';
+import {
+	DefaultURLControllerSearchParams,
+	DefaultTableSearchParams,
+	UrlController,
+	HandleTableParams
+} from '../types/types'
 
 import { useTableSearchParams, UseTableSearchParamsConfig } from './useTableSearchParams';
 

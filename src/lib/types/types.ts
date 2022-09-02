@@ -9,13 +9,13 @@ export type SearchParamsFunctions<T extends Record<string, any>> = {
 	 */
 	getPathWithSearch: (searchParams: T) => string
 	/**
-	 * Updates search params
-	 */
-	setSearchParams: (setSearchParams: (searchParams: T) => void) => void
-	/**
 	 * Reset search params to initial/default values.
 	 */
 	resetSearchParams: (newSearchParams?: Partial<T>) => void
+	/**
+	 * Updates search params
+	 */
+	setSearchParams: (setSearchParams: (searchParams: T) => void) => void
 }
 
 export type DefaultTableSearchParams<
@@ -32,32 +32,32 @@ export type TableSearchParams<Order, Filter extends Record<string, any>> = [
 	DefaultTableSearchParams<Order, Filter>,
 	{
 		/**
+		 * Changes items per page
+		 */
+		changeItemsPerPage: (itemsPerPage: number) => void
+		/**
+		 * Changes current page
+		 */
+		changePage: (page: number) => void
+		/**
+		 * Changes both current page and items per page
+		 */
+		changePagination: (page: number, itemsPerPage: number) => void
+		/**
+		 * Resets pagination to initial/default values
+		 */
+		resetPagination: () => void
+		/**
+		 * Method to updates filters.
+		 */
+		setFilter: (filter: Filter) => void
+		/**
 		 * Changes which column to order asc/desc.
 		 */
 		sortTable: (
 			order: OrderByEnum, 
 			orderColumn: Order
 		) => void
-		/**
-		 * Changes current page
-		 */
-		changePage: (page: number) => void
-		/**
-		 * Changes items per page
-		 */
-		changeItemsPerPage: (itemsPerPage: number) => void
-		/**
-		 * Changes both current page and items per page
-		 */
-		changePagination: (page: number, itemsPerPage: number) => void
-		/**
-		 * Method to updates filters.
-		 */
-		setFilter: (filter: Filter) => void
-		/**
-		 * Resets pagination to initial/default values
-		 */
-		resetPagination: () => void
 	} & SearchParamsFunctions<DefaultTableSearchParams<Order, Filter>>
 ]
 
@@ -66,8 +66,8 @@ export type DefaultURLControllerSearchParams<
 	Order,
 	Filter extends Record<string, any>
 > = {
-	pagination?: PaginationCriteria
 	filter?: Filter
+	pagination?: PaginationCriteria
 	sort?: SortCriteria<Order>
 } & UseURLControllerConfig
 
@@ -76,9 +76,9 @@ export type UrlController<
 	Filter extends Record<string, any>
 > = [
 	{
+		filter: Filter
 		pagination: PaginationController
 		sort?: SortCriteria<Order>
-		filter: Filter
 	},
 	{
 		/**
@@ -86,21 +86,21 @@ export type UrlController<
 		 */
 		getPaginationHref: (page: number) => string
 		/**
-		 * Sets number of total items.
-		 * * Note: Doesn't render the component
-		 */
-		setTotalItems: (totalItems?: number) => void
-		/**
-		 * Forces a table refresh
-		 */
-		reForceUpdate: () => void
-		/**
 		 * Handles the server request to populate the table.
 		 */
 		handleTable: (
 			setTable: (config: HandleTableParams<Order, Filter>) => void | Promise<void>, 
 			deps?: React.DependencyList
 		) => () => Promise<void>
+		/**
+		 * Forces a table refresh
+		 */
+		reForceUpdate: () => void
+		/**
+		 * Sets number of total items.
+		 * * Note: Doesn't render the component
+		 */
+		setTotalItems: (totalItems?: number) => void
 	} & TableSearchParams<Order, Filter>[1]
 ]
 // #endregion useURLController
@@ -110,9 +110,9 @@ export type HandleTableParams<
 	Order, 
 	Filter extends Record<string, any>
 > = {
+	filter: Filter
 	pagination: PaginationController
 	sort?: SortCriteria<Order>
-	filter: Filter
 }
 
 export type TableState<

@@ -61,8 +61,8 @@ export class PaginationController {
 		const newPagination = new PaginationController();
 
 		newPagination.criteria = {
-			page: page,
-			perPage: perPage
+			page,
+			perPage
 		}
 
 		newPagination.totalItems = totalItems;

@@ -27,7 +27,7 @@ export const useTableSearchParams = <
 	) => {
 		setSearchParams((searchParams) => {
 			searchParams.orderBy = orderBy;
-			// @ts-expect-error
+			// @ts-expect-error Says type Order is not equal to type Order 
 			searchParams.orderColumn = orderColumn
 			searchParams.page = 0;
 		});

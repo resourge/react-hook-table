@@ -1,7 +1,9 @@
-import { 
-	parseParams, useSearchParams as _useSearchParams,
-	SearchConfig, createNewUrlWithSearch
-} from '@resourge/react-search-params';
+import {
+	parseParams,
+	useSearchParams as _useSearchParams,
+	SearchConfig,
+	createNewUrlWithSearch
+} from '@resourge/react-search-params'
 
 import { SearchParamsFunctions } from '../types/types';
 import { navigate } from '../utils/setDefaultNavigation';
@@ -10,9 +12,9 @@ export type UseSearchParamsConfig = SearchConfig
 
 export const useSearchParams = <T extends Record<string, any> = Record<string, any>>(
 	defaultSearchParams: T,
-	{
-		hash = false
-	}: UseSearchParamsConfig = { hash: false }
+	{ hash = false }: UseSearchParamsConfig = {
+		hash: false 
+	}
 ): [
 	T,
 	SearchParamsFunctions<T>
@@ -38,7 +40,9 @@ export const useSearchParams = <T extends Record<string, any> = Record<string, a
 	}
 
 	const setSearchParams = (setSearchParams: (searchParams: T) => void) => {
-		const _params: T = { ...params };
+		const _params: T = {
+			...params 
+		};
 
 		setSearchParams(_params)
 

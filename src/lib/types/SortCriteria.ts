@@ -5,6 +5,6 @@ export enum OrderByEnum {
 }
 
 export type SortCriteria<T = string> = {
-	orderColumn: T extends string ? string : keyof T
 	orderBy: OrderByEnum
+	orderColumn: T extends string ? string : keyof T
 }
