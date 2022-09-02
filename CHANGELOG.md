@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/resourge/react-hook-table/compare/v1.1.13...v1.2.0) (2022-09-02)
+
+
+### Features
+
+* **package.json:** update dependencies ([c5888c6](https://github.com/resourge/react-hook-table/commit/c5888c68f6deb89b27fc6ebd83f021900ea441e2))
+
 ## [1.1.13](https://github.com/resourge/react-hook-table/compare/v1.1.12...v1.1.13) (2022-08-25)
 
 
