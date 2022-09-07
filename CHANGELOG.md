@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/resourge/react-hook-table/compare/v1.2.0...v1.2.1) (2022-09-07)
+
+
+### Bug Fixes
+
+* **package:** update react-search-params to fix bugs from the package ([845c647](https://github.com/resourge/react-hook-table/commit/845c647ab217afb36d3329fed06a23cf63341231))
+
 # [1.2.0](https://github.com/resourge/react-hook-table/compare/v1.1.13...v1.2.0) (2022-09-02)
 
 
