@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/resourge/react-hook-table/compare/v1.4.0...v1.4.1) (2022-09-22)
+
+
+### Bug Fixes
+
+* **sortcriteria:** remove const enum ([9f2758e](https://github.com/resourge/react-hook-table/commit/9f2758e8b1ff3079a2c8c5d96be55e74b096480f))
+
 # [1.4.0](https://github.com/resourge/react-hook-table/compare/v1.3.0...v1.4.0) (2022-09-22)
 
 
