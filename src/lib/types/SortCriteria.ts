@@ -1,5 +1,5 @@
 
-export enum OrderByEnum {
+export const enum OrderByEnum {
 	ASC = 1,
 	DESC = 2
 }
