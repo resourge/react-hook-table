@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/resourge/react-hook-table/compare/v1.3.0...v1.4.0) (2022-09-22)
+
+
+### Features
+
+* **package.json:** update @resourge/react-search-params ([e731776](https://github.com/resourge/react-hook-table/commit/e731776f3ad0323bce93e53f179d18a3a5b4a924))
+
 # [1.3.0](https://github.com/resourge/react-hook-table/compare/v1.2.1...v1.3.0) (2022-09-22)
 
 
