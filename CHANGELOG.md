@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/resourge/react-hook-table/compare/v1.2.1...v1.3.0) (2022-09-22)
+
+
+### Features
+
+* **package.json:** update packages and add chrome > 78 for optional channing ([976deae](https://github.com/resourge/react-hook-table/commit/976deae330a75f72e28b1fbc5ea70446aa5c1b38))
+
 ## [1.2.1](https://github.com/resourge/react-hook-table/compare/v1.2.0...v1.2.1) (2022-09-07)
 
 
