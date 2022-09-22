@@ -47,7 +47,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@resourge/react-search-params": "^1.3.2"
+    "@resourge/react-search-params": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.1",
