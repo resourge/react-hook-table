@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/resourge/react-hook-table/compare/v1.4.1...v2.0.0) (2022-11-10)
+
+
+### Features
+
+* **react-hook-table:** simplify the pagination process ([8a27df2](https://github.com/resourge/react-hook-table/commit/8a27df29670265f0e31e33a34626c68195306fd9))
+
+
+### BREAKING CHANGES
+
+* **react-hook-table:** removed only useTable for new useFetchPagination
+
 ## [1.4.1](https://github.com/resourge/react-hook-table/compare/v1.4.0...v1.4.1) (2022-09-22)
 
 

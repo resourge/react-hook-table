@@ -1,6 +1,6 @@
 {
   "name": "@resourge/react-hook-table",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "description": "react-hook-table is a hook with a set of tools to help to control a table. The hook provides control over sorting, pagination and filtering while updating the url search params to maintain consistency over page updates.",
   "main": "./dist/main.js",
   "module": "./dist/index.js",
