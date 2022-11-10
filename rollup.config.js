@@ -7,10 +7,10 @@ import { terser } from 'rollup-plugin-terser';
 
 import { name, author, license } from './package.json'
 
-const external = ['react', '@resourge/react-search-params'];
+const external = ['react', '@resourge/react-search-params', '@resourge/react-fetch'];
 const globals = {
 	react: 'React',
-	'@resourge/react-search-params': 'ResourgeReactSearchParams' 
+	'@resourge/react-search-params': 'ResourgeReactSearchParams'
 }
 
 const babelPlugins = [

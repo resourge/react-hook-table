@@ -5,10 +5,24 @@ import {
 	createNewUrlWithSearch
 } from '@resourge/react-search-params'
 
-import { SearchParamsFunctions } from '../types/types';
 import { navigate } from '../utils/setDefaultNavigation';
 
 export type UseSearchParamsConfig = SearchConfig
+
+export type SearchParamsFunctions<T extends Record<string, any>> = {
+	/**
+	 * Gets new path with search params
+	 */
+	getPathWithSearch: (searchParams: T) => string
+	/**
+	 * Reset search params to initial/default values.
+	 */
+	resetSearchParams: (newSearchParams?: Partial<T>) => void
+	/**
+	 * Updates search params
+	 */
+	setSearchParams: (setSearchParams: (searchParams: T) => void) => void
+}
 
 export const useSearchParams = <T extends Record<string, any> = Record<string, any>>(
 	defaultSearchParams: T,

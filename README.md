@@ -4,6 +4,7 @@
 
 ## Features
 
+- Uses @resourge/react-fetch
 - Saves filters, pagination and sorting on search params.
 - Provides a set of methods to help maintain and control a table pagination, sorting and filtering.
 - Provides methods to connect the navigation with other packages. (ex: react-router)
@@ -45,18 +46,34 @@ This connects `react-router` navigation with `@resourge/react-hook-table`
 
 ```Typescript
 const [
+  data, // Variable containing "data"
   {
-    filter, pagination, sort, products
+    changeItemsPerPage, changePage, sortTable, 
+    setFilter, getPaginationHref,
+    filter, sort, pagination
+    // Pagination Methods as well as filter/sort/pagination
+  }
+  getFetch // Method to re-fetch
+] = useFetchPagination(
+  async ({ pagination, sort, filter }) => {
+    const { data, pagination: { totalItems } } = await fetch(...)
+      
+    return {
+      data,
+      totalItems
+    }
   },
   {
-    changeItemsPerPage, changePage, changePagination,
-    getPaginationHref, getPathWithSearch, reForceUpdate,
-    resetPagination, resetSearchParams, setFilter,
-    setTotalItems, setSearchParams, handleTable, sortTable, reset
-  }
-] = useTable(
+    initialState: [],
+	/*
+	  // Default values
+      filter,
+	  sort,
+	  pagination
+	*/
+  },
   {
-    products: []
+	deps: [] // Extra dependencies
   }
 )
 ```
@@ -69,39 +86,38 @@ import { useTable } from '@resourge/react-hook-table';
 
 export default function Form() {
   const [
+    products, // Variable containing "data"
     {
-      filter, pagination, sort, products
+      changeItemsPerPage, changePage, sortTable, 
+      setFilter, getPaginationHref,
+      filter, sort, pagination
+      // Pagination Methods as well as filter/sort/pagination
+    }
+    getFetch // Method to re-fetch
+  ] = useFetchPagination(
+    async ({ pagination, sort, filter }) => {
+      // fetch...
+        
+      return {
+        data: [
+          { id: Math.random(), name: 'Apple' }
+        ],
+        totalItems: 10
+      }
     },
     {
-      changeItemsPerPage, changePage, changePagination,
-      getPaginationHref, getPathWithSearch, reForceUpdate,
-      resetPagination, resetSearchParams, setFilter,
-      setTotalItems, setSearchParams, handleTable, sortTable, reset
-    }
-  ] = useTable<{ products: Product[] }>(
+      initialState: [],
+  	  /*
+  	    // Default values
+          filter,
+  	    sort,
+  	    pagination
+  	  */
+    },
     {
-      products: []
+  	  deps: [] // Extra dependencies
     }
   )
-  
-  handleTable(({
-	pagination,
-	sort,
-	filter
-  }) => {
-    console.log('pagination', pagination)
-    console.log('sort', sort)
-    console.log('filter', filter)
-    
-    reset(
-      { 
-        products: [
-          { id: Math.random(), name: 'Apple' }
-        ] 
-      }, 
-      10
-    )
-  })
 
   return (
     <table>
@@ -121,7 +137,8 @@ export default function Form() {
 ```
 
 ```Typescript
-const [...] = useTable(
+const [...] = useFetchPagination(
+  fetchMethod,
   data,
   config
 )
@@ -131,58 +148,11 @@ const [...] = useTable(
 
 | Name | Type | Required | Description |
 | ---- | ---- | -------- | ----------- |
-| **data** | `object` | true | Object containing the table data. (ex: { products: [] }) |
-| **config** | `{ filter?: object, hash?: boolean, pagination?: PaginationCriteria, sort?: SortCriteria }` | false | Config to set initial/default filter, pagination and sort. <br> When hash is true it will use `Location hash` instead of `Location pathname` to get `search |
+| **fetchMethod** | `Promise` | true | Method that return the Data and totalItems. |
+| **data** | `{ initialState: any, filter?: object, hash?: boolean, pagination?: PaginationCriteria, sort?: SortCriteria }` | false | Config to set initial/default filter, pagination and sort and initialState. <br> When hash is true it will use `Location hash` instead of `Location pathname` to get `search |
+| **config** | `UseFetchConfig` | true | Config for @resourge/react-fetch. |
 
 ## Methods
-
-### handleTable
-
-Handles the server request to populate the table.
-It works like use effect with 2 params, a callback for the first param and `dependencies` for the second param.
-Also returns a method to manually request.
-
-```Typescript
-const [
-  ...
-  {
-    handleTable, reset
-  }
-] = useTable(...)
-
-// Returns a method for manually request.
-const requestManually = handleTable(({
-  pagination,
-  sort,
-  filter
-}) => {
-  // Expects to call reset to update the table data
-
-  reset(
-    { 
-      products: [
-        { id: Math.random(), name: 'Apple' }
-      ] 
-    }, 
-    10
-  )
-  // The second params works like useEffect dependencies.
-  // But when undefined it will not be called on render
-}, [])
-```
-
-### reset
-
-Resets the table data and total items.
-
-```Typescript
-const [
-  ...
-  {
-    reset
-  }
-] = useTable(...)
-```
 
 ### changeItemsPerPage
 
@@ -194,7 +164,7 @@ const [
   {
     changeItemsPerPage
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### changePage
@@ -207,7 +177,7 @@ const [
   {
     changePage
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### changePagination
@@ -220,7 +190,7 @@ const [
   {
 	changePagination
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### getPaginationHref
@@ -233,7 +203,7 @@ const [
   {
     getPaginationHref
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### getPathWithSearch
@@ -246,7 +216,7 @@ const [
   {
 	getPathWithSearch
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### reForceUpdate
@@ -259,7 +229,7 @@ const [
   {
 	reForceUpdate
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### resetPagination
@@ -272,7 +242,7 @@ const [
   {
     resetPagination
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### resetSearchParams
@@ -285,7 +255,7 @@ const [
   {
     resetSearchParams
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### setFilter
@@ -298,7 +268,7 @@ const [
   {
 	setFilter
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### setTotalItems
@@ -312,7 +282,7 @@ const [
   {
     setTotalItems
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### setSearchParams
@@ -325,7 +295,7 @@ const [
   {
     setSearchParams
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### sortTable
@@ -338,7 +308,7 @@ const [
   {
     sortTable
   }
-] = useTable(...)
+] = useFetchPagination(...)
 ```
 
 ### createLocation

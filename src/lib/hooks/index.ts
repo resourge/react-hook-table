@@ -1,20 +1,50 @@
+import { useFetchPagination } from './useFetchPagination';
+import type {
+	UseFetchPaginationConfig,
+	UseFetchPaginationTableMeta,
+	UseFetchPaginationDefaultValues,
+	UseFetchPaginationReturn
+} from './useFetchPagination'
+import { useFilter } from './useFilter';
+import type { 
+	UseFilterConfig,
+	UseFilterDefaultValue,
+	FilterType,
+	UseFilterReturn 
+} from './useFilter';
+import { usePagination } from './usePagination';
+import type {
+	UsePaginationConfig,
+	PaginationParams,
+	Pagination,
+	UsePaginationReturn
+} from './usePagination'
 import { useSearchParams } from './useSearchParams';
-import type { UseSearchParamsConfig } from './useSearchParams';
-import { useTable } from './useTable';
-import { useTableSearchParams } from './useTableSearchParams';
-import type { UseTableSearchParamsConfig } from './useTableSearchParams';
-import { useURLController } from './useURLController';
-import type { UseURLControllerConfig } from './useURLController';
+import type { UseSearchParamsConfig, SearchParamsFunctions } from './useSearchParams';
 
 export {
 	useSearchParams,
-	UseSearchParamsConfig,
 
-	useTable, 
+	useFetchPagination, 
 
-	useTableSearchParams, 
-	UseTableSearchParamsConfig,
+	useFilter, 
 
-	useURLController,
-	UseURLControllerConfig
+	usePagination
 };
+
+export type {
+	UseSearchParamsConfig,
+	SearchParamsFunctions,
+	UseFetchPaginationConfig,
+	UseFetchPaginationTableMeta,
+	UseFetchPaginationDefaultValues,
+	UseFetchPaginationReturn,
+	UseFilterConfig,
+	UseFilterDefaultValue,
+	FilterType,
+	UseFilterReturn,
+	UsePaginationConfig,
+	PaginationParams,
+	Pagination,
+	UsePaginationReturn
+}
