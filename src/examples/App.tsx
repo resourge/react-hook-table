@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useTable } from '../lib'
+import { useFetchPagination } from '../lib'
 
 type Product = {
 	id: number
@@ -8,35 +8,34 @@ type Product = {
 }
 
 function App() {
-	const [
-		{ products },
-		{
-			handleTable, changeItemsPerPage, reset
-		}
-	] = useTable<{ products: Product[] }>(
-		{
-			products: []
-		}
-	)
-
 	const [random, setRandom] = useState(Math.random);
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [_, setRandom2] = useState(Math.random);
-
-	const manually = handleTable((params) => {
-		reset(
-			{ 
-				products: [
+	const [
+		products,
+		{ changeItemsPerPage },
+		manually
+	] = useFetchPagination<'', Product[]>(
+		async () => {
+			return await Promise.resolve({
+				data: [
 					{
 						id: Math.random(),
 						name: 'Apple' 
 					}
-				] 
-			}, 
-			10
-		);
-	}, [random])
+				],
+				totalItems: 10	
+			})
+		},
+		{
+			initialState: []
+		},
+		{
+			deps: [random]
+		}
+	)
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [_, setRandom2] = useState(Math.random);
 
 	return (
 		<>

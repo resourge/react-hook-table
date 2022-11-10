@@ -98,12 +98,12 @@ export default function Form() {
     async ({ pagination, sort, filter }) => {
       // fetch...
         
-      return {
+      return await Promise.resolve({
         data: [
           { id: Math.random(), name: 'Apple' }
         ],
         totalItems: 10
-      }
+      })
     },
     {
       initialState: [],
