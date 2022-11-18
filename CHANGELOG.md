@@ -1,3 +1,11 @@
+## [2.1.3](https://github.com/resourge/react-hook-table/compare/v2.1.2...v2.1.3) (2022-11-18)
+
+
+### Bug Fixes
+
+* **usefetchpagination:** fix types by updating react-fetch ([9517df3](https://github.com/resourge/react-hook-table/commit/9517df3ca85188e92598f63182e4fc79934b6c76))
+* **usefetchpagination:** update react-fetch ([ca611b4](https://github.com/resourge/react-hook-table/commit/ca611b4c81d5b9513aff83446ee6855f30bcab76))
+
 ## [2.1.2](https://github.com/resourge/react-hook-table/compare/v2.1.1...v2.1.2) (2022-11-18)
 
 
