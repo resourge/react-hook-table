@@ -44,13 +44,13 @@ export type UseFetchPaginationReturn<
 	 */
 	data: Data,
 	tableMeta: UsePaginationReturn & UseFilterReturn<Filter, OrderColumn> & {
-		error: UseFetchEffect<any>['error']
-		isLoading: UseFetchEffect<any>['isLoading']
+		error: UseFetchEffect<any, any>['error']
+		isLoading: UseFetchEffect<any, any>['isLoading']
 		/**
 		 * Resets the pagination, sort and/or filter.
 		 */
 		reset: (newSearchParams?: Omit<UseFetchPaginationDefaultValues<Data, OrderColumn, Filter>, 'initialState'>) => void
-		setData: UseFetchEffect<any>['setData']
+		setData: UseFetchEffect<any, any>['setData']
 	},
 	/** 
 	 * Refetch method.
@@ -97,7 +97,7 @@ export const useFetchPagination = <
 		fetch,
 		isLoading,
 		setData
-	} = useFetch<Data>(
+	} = useFetch(
 		async (http) => {
 			const { data, totalItems } = await method(http, {
 				pagination,
