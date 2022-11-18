@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/resourge/react-hook-table/compare/v2.0.0...v2.1.0) (2022-11-18)
+
+
+### Features
+
+* **usefetchpagination:** update react-fetch to lastest version ([c53b51a](https://github.com/resourge/react-hook-table/commit/c53b51a8ed682b8572daa482aa31781f9f3b64cd))
+
 # [2.0.0](https://github.com/resourge/react-hook-table/compare/v1.4.1...v2.0.0) (2022-11-10)
 
 
