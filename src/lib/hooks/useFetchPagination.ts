@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { HttpServiceClass } from '@resourge/http-service'
+import { HttpService } from '@resourge/http-service'
 import { useFetch, UseFetchEffect, UseFetchEffectConfig } from '@resourge/react-fetch'
 
 import {
@@ -64,7 +64,7 @@ export const useFetchPagination = <
 	Filter extends Record<string, any> = Record<string, any>
 >(
 	method: (
-		http: HttpServiceClass,
+		http: typeof HttpService,
 		tableMeta: UseFetchPaginationTableMeta<Filter, OrderColumn>
 	) => Promise<{ data: Data, totalItems?: number }>,
 	{ 
