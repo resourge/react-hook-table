@@ -55,7 +55,7 @@ export type UseFetchPaginationReturn<
 	/** 
 	 * Refetch method.
 	*/
-	fetch: () => Promise<void>
+	fetch: () => Promise<Data>
 ]
 
 export const useFetchPagination = <
