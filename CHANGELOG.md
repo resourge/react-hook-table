@@ -1,3 +1,10 @@
+## [2.1.6](https://github.com/resourge/react-hook-table/compare/v2.1.5...v2.1.6) (2022-11-21)
+
+
+### Bug Fixes
+
+* **usefetchpagination:** update @resourge/react-fetch to fix bug with baseUrl ([f93f670](https://github.com/resourge/react-hook-table/commit/f93f6703fe777bee1b633601dbca9513da8f605c))
+
 ## [2.1.5](https://github.com/resourge/react-hook-table/compare/v2.1.4...v2.1.5) (2022-11-21)
 
 
