@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { HttpService } from '@resourge/http-service'
-import { useFetch, UseFetchEffect, UseFetchEffectConfig } from '@resourge/react-fetch'
+import { useFetch, UseFetchStateConfig } from '@resourge/react-fetch'
+import { UseFetchState } from '@resourge/react-fetch/dist/hooks/useFetch'
 
 import {
 	FilterType,
@@ -16,7 +17,7 @@ import {
 	UsePaginationReturn
 } from './usePagination'
 
-export type UseFetchPaginationConfig = UsePaginationConfig & UseFilterConfig & Omit<UseFetchEffectConfig<any>, 'initialState'>
+export type UseFetchPaginationConfig = UsePaginationConfig & UseFilterConfig & Omit<UseFetchStateConfig<any>, 'initialState'>
 
 export type UseFetchPaginationTableMeta<
 	Filter extends Record<string, any> = Record<string, any>,
@@ -44,13 +45,13 @@ export type UseFetchPaginationReturn<
 	 */
 	data: Data,
 	tableMeta: UsePaginationReturn & UseFilterReturn<Filter, OrderColumn> & {
-		error: UseFetchEffect<any, any>['error']
-		isLoading: UseFetchEffect<any, any>['isLoading']
+		error: UseFetchState<any, any>['error']
+		isLoading: UseFetchState<any, any>['isLoading']
 		/**
 		 * Resets the pagination, sort and/or filter.
 		 */
 		reset: (newSearchParams?: Omit<UseFetchPaginationDefaultValues<Data, OrderColumn, Filter>, 'initialState'>) => void
-		setData: UseFetchEffect<any, any>['setData']
+		setData: UseFetchState<any, any>['setData']
 	},
 	/** 
 	 * Refetch method.
