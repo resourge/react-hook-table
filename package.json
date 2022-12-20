@@ -47,8 +47,8 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@resourge/react-fetch": "~1.8",
-    "@resourge/react-search-params": "^1.6.1"
+    "@resourge/react-fetch": "1.x",
+    "@resourge/react-search-params": "1.x"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
