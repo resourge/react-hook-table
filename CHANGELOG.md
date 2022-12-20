@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/resourge/react-hook-table/compare/v2.1.7...v2.2.0) (2022-12-20)
+
+
+### Features
+
+* **package.json:** update package branchs ([1aace31](https://github.com/resourge/react-hook-table/commit/1aace3180a8466bffb72c9e04c7ca23241dfb6e9))
+
 ## [2.1.7](https://github.com/resourge/react-hook-table/compare/v2.1.6...v2.1.7) (2022-11-22)
 
 
