@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/resourge/react-hook-table/compare/v2.2.0...v2.2.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* **rollup.config.js:** fix types ([95c8e2a](https://github.com/resourge/react-hook-table/commit/95c8e2a8f69592444a904c16ae7d43ce71548ea5))
+
 # [2.2.0](https://github.com/resourge/react-hook-table/compare/v2.1.7...v2.2.0) (2022-12-20)
 
 
