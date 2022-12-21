@@ -8,6 +8,8 @@ const fixTypes = (typePath) => {
 	
 	// Change declare to export
 	content = content.replace(/declare/g, 'export declare');
+	// Change type to export type
+	content = content.replace(/type /g, 'export type ');
 	
 	// Remover last export
 	const lastExport = content.lastIndexOf('export {');
