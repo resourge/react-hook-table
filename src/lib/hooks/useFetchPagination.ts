@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { HttpService } from '@resourge/http-service'
-import { useFetch, UseFetchStateConfig } from '@resourge/react-fetch'
-import { UseFetchState } from '@resourge/react-fetch/dist/hooks/useFetch'
+import { type HttpServiceInterface } from '@resourge/http-service'
+import { useFetch, type UseFetchStateConfig } from '@resourge/react-fetch'
+import { type UseFetchState } from '@resourge/react-fetch/dist/hooks/useFetch'
 
 import {
-	FilterType,
+	type FilterType,
 	useFilter,
-	UseFilterConfig,
-	UseFilterDefaultValue,
-	UseFilterReturn
+	type UseFilterConfig,
+	type UseFilterDefaultValue,
+	type UseFilterReturn
 } from './useFilter'
 import {
-	PaginationParams,
+	type PaginationParams,
 	usePagination,
-	UsePaginationConfig,
-	UsePaginationReturn
+	type UsePaginationConfig,
+	type UsePaginationReturn
 } from './usePagination'
 
 export type UseFetchPaginationConfig = UsePaginationConfig & UseFilterConfig & Omit<UseFetchStateConfig<any>, 'initialState'>
@@ -65,7 +65,7 @@ export const useFetchPagination = <
 	Filter extends Record<string, any> = Record<string, any>
 >(
 	method: (
-		http: typeof HttpService,
+		http: HttpServiceInterface,
 		tableMeta: UseFetchPaginationTableMeta<Filter, OrderColumn>
 	) => Promise<{ data: Data, totalItems?: number }>,
 	{ 

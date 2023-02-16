@@ -3,7 +3,7 @@ import { useMemo, useRef } from 'react';
 import {
 	createNewUrlWithSearch,
 	parseParams,
-	SearchConfig,
+	type SearchConfig,
 	useSearchParams
 } from '@resourge/react-search-params'
 

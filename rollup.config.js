@@ -5,7 +5,11 @@ import dts from 'rollup-plugin-dts';
 import filsesize from 'rollup-plugin-filesize';
 import { terser } from 'rollup-plugin-terser';
 
-import { name, author, license } from './package.json'
+import packageJson from './package.json' assert { type: 'json' }
+
+const {
+	name, author, license 
+} = packageJson
 
 const external = ['react', '@resourge/react-search-params', '@resourge/react-fetch'];
 const globals = {

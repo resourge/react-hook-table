@@ -1,9 +1,9 @@
-import { useFetchPagination } from './useFetchPagination';
-import type {
-	UseFetchPaginationConfig,
-	UseFetchPaginationTableMeta,
-	UseFetchPaginationDefaultValues,
-	UseFetchPaginationReturn
+import {
+	useFetchPagination,
+	type UseFetchPaginationConfig,
+	type UseFetchPaginationTableMeta,
+	type UseFetchPaginationDefaultValues,
+	type UseFetchPaginationReturn
 } from './useFetchPagination'
 import { useFilter } from './useFilter';
 import type { 

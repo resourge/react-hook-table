@@ -1,7 +1,7 @@
 import {
 	parseParams,
 	useSearchParams as _useSearchParams,
-	SearchConfig,
+	type SearchConfig,
 	createNewUrlWithSearch
 } from '@resourge/react-search-params'
 

@@ -39,10 +39,16 @@ function App() {
 
 	return (
 		<>
-			<button onClick={() => setRandom(Math.random())}>
+			<button onClick={() => {
+				setRandom(Math.random()); 
+			}}
+			>
 				Update deps
 			</button>
-			<button onClick={() => setRandom2(Math.random())}>
+			<button onClick={() => {
+				setRandom2(Math.random()); 
+			}}
+			>
 				Update component 
 			</button>
 			<button onClick={manually}>

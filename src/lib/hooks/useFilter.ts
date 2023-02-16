@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { useMemo } from 'react';
 
-import { SearchConfig, useSearchParams } from '@resourge/react-search-params';
+import { type SearchConfig, useSearchParams } from '@resourge/react-search-params';
 
-import { OrderByEnum, SortCriteria } from '../types/SortCriteria';
+import { type OrderByEnum, type SortCriteria } from '../types/SortCriteria';
 import { navigate } from '../utils/setDefaultNavigation';
 
 export type UseFilterConfig = SearchConfig
