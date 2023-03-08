@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { type HttpServiceInterface } from '@resourge/http-service'
 import { useFetch, type UseFetchStateConfig } from '@resourge/react-fetch'
 import { type UseFetchState } from '@resourge/react-fetch/dist/hooks/useFetch'
 
@@ -65,7 +64,6 @@ export const useFetchPagination = <
 	Filter extends Record<string, any> = Record<string, any>
 >(
 	method: (
-		http: HttpServiceInterface,
 		tableMeta: UseFetchPaginationTableMeta<Filter, OrderColumn>
 	) => Promise<{ data: Data, totalItems?: number }>,
 	{ 
@@ -99,8 +97,8 @@ export const useFetchPagination = <
 		isLoading,
 		setData
 	} = useFetch(
-		async (http) => {
-			const { data, totalItems } = await method(http, {
+		async () => {
+			const { data, totalItems } = await method({
 				pagination,
 				sort,
 				filter
