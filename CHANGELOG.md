@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/resourge/react-hook-table/compare/v2.2.3...v2.2.4) (2023-03-09)
+
+
+### Bug Fixes
+
+* **usefetchpagination:** fix bug where setFilter does not clear page ([07a41a5](https://github.com/resourge/react-hook-table/commit/07a41a554a13e592fcee217cec23cb0beb47abdc))
+
 ## [2.2.3](https://github.com/resourge/react-hook-table/compare/v2.2.2...v2.2.3) (2023-03-08)
 
 
