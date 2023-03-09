@@ -135,6 +135,12 @@ export const useFetchPagination = <
 			pagination,
 			...paginationMethods,
 			...filterMethods,
+			setFilter: (newFilter: FilterType<OrderColumn, Filter>) => {
+				filterMethods.setFilter({
+					...newFilter,
+					page: 0
+				});
+			},
 			reset,
 			setData
 		},
