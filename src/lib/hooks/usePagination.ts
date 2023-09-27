@@ -1,152 +1,149 @@
-import { useMemo, useRef } from 'react';
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+import { useFetch, type UseFetchStateConfig } from '@resourge/react-fetch'
+import { type UseFetchState } from '@resourge/react-fetch/dist/hooks/useFetch'
 
 import {
-	createNewUrlWithSearch,
-	parseParams,
-	type SearchConfig,
-	useSearchParams
-} from '@resourge/react-search-params'
+	type FilterType,
+	useFilterSearchParams,
+	type UseFilterSearchParamsConfig,
+	type UseFilterSearchParamsDefaultValue,
+	type UseFilterSearchParamsReturn
+} from './useFilterSearchParams'
+import {
+	type PaginationSearchParams,
+	usePaginationSearchParams,
+	type UsePaginationSearchParamsConfig,
+	type UsePaginationSearchParamsReturn
+} from './usePaginationSearchParams'
 
-import { calculateTotalPages } from '../utils/calculateTotalPages';
-import { navigate } from '../utils/setDefaultNavigation';
+export type UsePaginationTableMeta<
+	Filter extends Record<string, any> = Record<string, any>,
+	OrderColumn = string, 
+> = {
+	pagination: PaginationSearchParams
+} & UseFilterSearchParamsDefaultValue<Filter, OrderColumn> 
 
-export type UsePaginationConfig = SearchConfig
+export type UsePaginationConfig<
+	Data,
+	OrderColumn = string, 
+	Filter extends Record<string, any> = Record<string, any>
+> = UseFilterSearchParamsDefaultValue<Filter, OrderColumn> & {
+	pagination?: PaginationSearchParams
+} 
+& UseFetchStateConfig<Data> 
+& UsePaginationSearchParamsConfig
+& UseFilterSearchParamsConfig
 
-export type PaginationParams = { page: number, perPage: number }
-
-export type Pagination = PaginationParams & { totalItems: number, totalPages: number }
-
-export type UsePaginationReturn = {
+export type UsePaginationReturn<
+	Data,
+	OrderColumn = string, 
+	Filter extends Record<string, any> = Record<string, any>
+> = {
 	/**
-	 * Changes items per page
+	 * useFetchPagination Data
 	 */
-	changeItemsPerPage: (perPage: number) => void
+	data: Data
+	error: UseFetchState<any, any>['error']
+	/** 
+	 * Redoes the fetch again.
+	*/
+	fetch: () => Promise<Data>
+	isLoading: UseFetchState<any, any>['isLoading']
 	/**
-	 * Changes current page
+	 * Resets the pagination, sort and/or filter.
 	 */
-	changePage: (page: number, totalItems?: number) => void
-	/**
-	 * Changes both current page and items per page
-	 */
-	changePagination: (page: number, perPage: number) => void
-	/**
-	 * Changes total number of pages using total number of items
-	 * * Note: It doesn't trigger render.
-	 */
-	changeTotalPages: (totalItems: number) => void
-	/**
-	 * Builds href for use on navigation. (usually used with pagination component)
-	 */
-	getPaginationHref: (page: number) => string
-	pagination: Pagination
-	/**
-	 * Resets pagination to initial/default values
-	 */
-	resetPagination: () => void
-	url: URL
-}
+	reset: (newSearchParams?: Omit<UsePaginationConfig<Data, OrderColumn, Filter>, 'initialState'>) => void
+	setPaginationState: UseFetchState<any, any>['setFetchState']
+} 
+& UsePaginationSearchParamsReturn 
+& UseFilterSearchParamsReturn<Filter, OrderColumn> 
 
-export const usePagination = (
-	defaultSearchParams?: PaginationParams,
-	{ hash = false }: UsePaginationConfig = {
-		hash: false 
-	}
-): UsePaginationReturn => {
-	const [
-		{
-			params,
-			url
-		}, 
-		setParams
-	] = useSearchParams<PaginationParams>(
-		navigate,
-		defaultSearchParams,
-		{
-			hash
-		}
-	);
-
-	const paginationRef = useRef({
-		totalPages: 0,
-		totalItems: 0 
-	});
-
-	const pagination = useMemo((): Pagination => ({
-		perPage: params.perPage,
-		page: params.page,
-		totalPages: 0,
-		totalItems: 0
-	}), 
-	[params.perPage, params.page])
-
-	pagination.totalPages = paginationRef.current.totalPages;
-	pagination.totalItems = paginationRef.current.totalItems;
-
-	const _setParams = (newPagination: Partial<PaginationParams>) => {
-		setParams({
-			...params,
-			...newPagination
-		})
-	}
-
-	const changePage = (page: number) => {
-		_setParams({
-			page
-		});
-	};
-
-	const changeTotalPages = (totalItems: number) => {
-		const totalPages = calculateTotalPages(pagination.perPage, totalItems);
-
-		paginationRef.current = {
-			totalPages: totalPages ?? pagination.totalPages,
-			totalItems
-		}
-
-		if ( totalPages < pagination.page ) {
-			changePage(0)
-		}
-	}
-
-	const changeItemsPerPage = (perPage: number) => {
-		_setParams({
-			perPage,
-			page: 0
-		});
-	};
-    
-	const changePagination = (page: number, perPage: number) => {
-		_setParams({
-			perPage,
-			page
-		});
-	};
-
-	const resetPagination = () => {
-		_setParams({
+export const usePagination = <
+	OrderColumn, 
+	Data,
+	Filter extends Record<string, any> = Record<string, any>
+>(
+	method: (
+		tableMeta: UsePaginationTableMeta<Filter, OrderColumn>
+	) => Promise<{ data: Data, totalItems?: number }>,
+	{ 
+		initialState,
+		pagination: defaultPagination = {
 			page: 0,
-			perPage: params.perPage
-		});
-	};
+			perPage: 10
+		},
+		filter: _filter,
+		sort: _sort,
+		...config
+	}: UsePaginationConfig<Data, OrderColumn, Filter>
+): UsePaginationReturn<Data, OrderColumn, Filter> => {
+	const { pagination, ...paginationMethods } = usePaginationSearchParams(
+		defaultPagination, 
+		config
+	);
+	const {
+		url, filter, sort, ...filterMethods 
+	} = useFilterSearchParams<Filter, OrderColumn>(
+		{
+			...defaultPagination,
+			filter: _filter,
+			sort: _sort
+		}, 
+		config
+	);
+	
+	const {
+		data,
+		error,
+		fetch,
+		isLoading,
+		setFetchState
+	} = useFetch(
+		async () => {
+			const { data, totalItems } = await method({
+				pagination,
+				sort,
+				filter
+			});
 
-	const getPaginationHref = (page: number) => {
-		const newSearch: string = parseParams({
-			...params,
-			page
-		});
+			paginationMethods.changeTotalPages(totalItems ?? 0);
 
-		return createNewUrlWithSearch(url, newSearch, hash).href;
+			return data
+		},
+		{
+			initialState,
+			...config,
+			deps: config?.deps ? [pagination, filter, sort, ...config.deps] : [pagination, filter, sort]
+		}
+	)
+
+	const reset = (newSearchParams?: Omit<UsePaginationConfig<Data, OrderColumn, Filter>, 'initialState'>) => {
+		if ( newSearchParams ) {
+			filterMethods.setFilter({
+				...newSearchParams.pagination,
+				...(newSearchParams.sort ?? {}),
+				...newSearchParams.filter
+			} as FilterType<OrderColumn, Filter>);
+		}
 	}
 
 	return {
-		url,
+		data,
+		error,
+		isLoading,
+		filter,
+		sort,
 		pagination,
-
-		changeTotalPages,
-		changePage,
-		changeItemsPerPage,
-		changePagination,
-		resetPagination,
-		getPaginationHref
+		...paginationMethods,
+		...filterMethods,
+		setFilter: (newFilter: FilterType<OrderColumn, Filter>) => {
+			filterMethods.setFilter({
+				...newFilter,
+				page: 0
+			});
+		},
+		reset,
+		setPaginationState: setFetchState,
+		fetch
 	}
 }

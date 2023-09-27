@@ -9,6 +9,7 @@
 - Provides a set of methods to help maintain and control a table pagination, sorting and filtering.
 - Provides methods to connect the navigation with other packages. (ex: react-router)
 - [parseParams](###), [parseSearch](###parseSearch) method's that extend URLSearchParams for own use.
+- useInfiniteLoading
 
 
 ## Installation
@@ -44,57 +45,32 @@ This connects `react-router` navigation with `@resourge/react-hook-table`
 
 ## Usage
 
-```Typescript
-const [
-  data, // Variable containing "data"
-  {
-    changeItemsPerPage, changePage, sortTable, 
-    setFilter, getPaginationHref,
-    filter, sort, pagination
-    // Pagination Methods as well as filter/sort/pagination
-  }
-  getFetch // Method to re-fetch
-] = useFetchPagination(
-  async ({ pagination, sort, filter }) => {
-    const { data, pagination: { totalItems } } = await fetch(...)
-      
-    return {
-      data,
-      totalItems
-    }
-  },
-  {
-    initialState: [],
-	/*
-	  // Default values
-      filter,
-	  sort,
-	  pagination
-	*/
-  },
-  {
-	deps: [] // Extra dependencies
-  }
-)
-```
-
-## Quickstart
-
 ```jsx
 import React from 'react';
-import { useTable } from '@resourge/react-hook-table';
+import { usePagination } from '@resourge/react-hook-table';
 
-export default function Form() {
-  const [
-    products, // Variable containing "data"
-    {
-      changeItemsPerPage, changePage, sortTable, 
-      setFilter, getPaginationHref,
-      filter, sort, pagination
-      // Pagination Methods as well as filter/sort/pagination
-    }
-    getFetch // Method to re-fetch
-  ] = useFetchPagination(
+export default function List() {
+  const {
+    data: products, // Variable containing 'data'
+	filter,
+	error,
+	isLoading,
+	pagination,
+	sort,
+
+    fetch, // Method to re-fetch
+
+	setFilter,
+	changeItemsPerPage, 
+	changePage, 
+	changePagination, 
+	changeTotalPages, 
+	getPaginationHref,
+	reset,
+	resetPagination,
+	setPaginationState,
+	sortTable
+  } = usePagination(
     async ({ pagination, sort, filter }) => {
       // fetch... use Http
         
@@ -113,8 +89,6 @@ export default function Form() {
   	    sort,
   	    pagination
   	  */
-    },
-    {
   	  deps: [] // Extra dependencies
     }
   )
@@ -136,35 +110,55 @@ export default function Form() {
 }
 ```
 
-```Typescript
-const [...] = useFetchPagination(
-  fetchMethod,
-  data,
-  config
-)
-```
-
-### Config
+## Config
 
 | Name | Type | Required | Description |
 | ---- | ---- | -------- | ----------- |
 | **fetchMethod** | `Promise` | true | Method that return the Data and totalItems. |
-| **data** | `{ initialState: any, filter?: object, hash?: boolean, pagination?: PaginationCriteria, sort?: SortCriteria }` | false | Config to set initial/default filter, pagination and sort and initialState. <br> When hash is true it will use `Location hash` instead of `Location pathname` to get `search |
-| **config** | `UseFetchConfig` | true | Config for @resourge/react-fetch. |
+| **config** | `{ initialState: any, filter?: object, hash?: boolean, pagination?: PaginationCriteria, sort?: SortCriteria } & UseFetchConfig` | true | Config to set initial/default filter, pagination and sort and initialState. <br> When hash is true it will use `Location hash` instead of `Location pathname` to get `search. UseFetchConfig from @resourge/react-fetch. |
 
-## Methods
+### filter
+
+Pagination Filters
+
+### pagination
+
+Pagination per page and items per page
+
+### sort
+
+Pagination sort
+
+### fetch
+
+Method to refetch the current pagination
+
+```Typescript
+const {
+  ...
+  fetch
+} = usePagination(...)
+```
+### setFilter
+
+Method to updates filters.
+
+```Typescript
+const {
+  ...
+  setFilter
+} = usePagination(...)
+```
 
 ### changeItemsPerPage
 
 Changes items per page
 
 ```Typescript
-const [
+const {
   ...
-  {
-    changeItemsPerPage
-  }
-] = useFetchPagination(...)
+  changeItemsPerPage
+} = usePagination(...)
 ```
 
 ### changePage
@@ -172,12 +166,10 @@ const [
 Changes current page
 
 ```Typescript
-const [
+const {
   ...
-  {
-    changePage
-  }
-] = useFetchPagination(...)
+  changePage
+} = usePagination(...)
 ```
 
 ### changePagination
@@ -185,12 +177,22 @@ const [
 Changes both current page and items per page
 
 ```Typescript
-const [
+const {
   ...
-  {
-	changePagination
-  }
-] = useFetchPagination(...)
+  changePagination
+} = usePagination(...)
+```
+
+### changeTotalPages
+
+Changes total number of pages using total number of items
+_Note: It doesn't trigger render._
+
+```Typescript
+const {
+  ...
+  changeTotalPages
+} = usePagination(...)
 ```
 
 ### getPaginationHref
@@ -198,38 +200,21 @@ const [
 Builds href for use on navigation. (usually used with pagination component)
 
 ```Typescript
-const [
+const {
   ...
-  {
-    getPaginationHref
-  }
-] = useFetchPagination(...)
+  getPaginationHref
+} = usePagination(...)
 ```
 
-### getPathWithSearch
+### reset
 
-Gets new path with search params
-
-```Typescript
-const [
-  ...
-  {
-	getPathWithSearch
-  }
-] = useFetchPagination(...)
-```
-
-### reForceUpdate
-
-Forces a table refresh
+Resets the pagination, sort and/or filter.
 
 ```Typescript
-const [
+const {
   ...
-  {
-	reForceUpdate
-  }
-] = useFetchPagination(...)
+  reset
+} = usePagination(...)
 ```
 
 ### resetPagination
@@ -237,65 +222,22 @@ const [
 Resets pagination to initial/default values
 
 ```Typescript
-const [
+const {
   ...
-  {
-    resetPagination
-  }
-] = useFetchPagination(...)
+  resetPagination
+} = usePagination(...)
 ```
 
-### resetSearchParams
 
-Reset search params to initial/default values.
+### setPaginationState
 
-```Typescript
-const [
-  ...
-  {
-    resetSearchParams
-  }
-] = useFetchPagination(...)
-```
-
-### setFilter
-
-Method to updates filters.
+To set pagination state manually
 
 ```Typescript
-const [
+const {
   ...
-  {
-	setFilter
-  }
-] = useFetchPagination(...)
-```
-
-### setTotalItems
-
-Sets number of total items.
-_Note: Doesn't render the component_
-
-```Typescript
-const [
-  ...
-  {
-    setTotalItems
-  }
-] = useFetchPagination(...)
-```
-
-### setSearchParams
-
-Updates search params
-
-```Typescript
-const [
-  ...
-  {
-    setSearchParams
-  }
-] = useFetchPagination(...)
+  setPaginationState
+} = usePagination(...)
 ```
 
 ### sortTable
@@ -303,38 +245,224 @@ const [
 Changes which column to order asc/desc.
 
 ```Typescript
-const [
+const {
   ...
+  sortTable
+} = usePagination(...)
+```
+
+## useInfiniteLoading
+
+
+### Usage
+
+```jsx
+import React from 'react';
+import { useInfiniteLoading, RefreshControl } from '@resourge/react-hook-table';
+
+export default function List() {
+  const {
+    data: products, // Variable containing 'data'
+	filter,
+	error,
+	isLoading,
+	sort,
+
+	context,
+	isLast,
+	isLastIncomplete,
+
+	loadMore,
+	preload,
+    fetch, // Method to re-fetch
+
+	setFilter,
+	changeItemsPerPage, 
+	reset,
+	setPaginationState,
+	sortTable
+  } = useInfiniteLoading(
+    async ({ pagination, sort, filter }) => {
+      // fetch... use Http
+        
+      return await Promise.resolve({
+        data: [
+          { id: Math.random(), name: 'Apple' }
+        ],
+        totalItems: 10
+      })
+    },
+    {
+      initialState: [],
+  	  /*
+  	    // Default values
+          filter,
+  	    sort,
+  	    pagination
+  	  */
+  	  deps: [] // Extra dependencies
+    }
+  )
+
+  return (
+    <table>
+      <tbody>
+        {
+          products.map((product, index) => (
+            <tr key={`${index}`}>
+        	  <td>{ product.id } </td>
+        	  <td>{ product.name } </td>
+			</tr>
+          ))
+        }
+		<tr>
+		  <td>
+            <RefreshControl 
+              context={context}
+              renderComponent={({ isLastIncomplete, onClick }) => (
+                !isLastIncomplete 
+                  ? (
+                    <button
+                     disabled={isLoading}
+                     onClick={onClick}
+                    >Get more</button>
+                  ) : null
+              )}
+            />
+		  </td>
+		</tr>
+      </tbody>
+    </table>
+  )
+}
+```
+
+### context
+
+Contains all the from useInfiniteLoading. (Works with RefreshControl)
+
+```Typescript
+const {
+  ...
+  loadMore
+} = usePagination(...)
+```
+
+### isLast
+
+If is last 'page'
+
+```Typescript
+const {
+  ...
+  isLast
+} = usePagination(...)
+```
+
+### isLastIncomplete
+
+If last 'page' is incomplete (itemPerPage 10 but the last page got less than 10)
+
+```Typescript
+const {
+  ...
+  isLastIncomplete
+} = usePagination(...)
+```
+
+### loadMore
+
+Method to load more 'pages'
+
+```Typescript
+const {
+  ...
+  loadMore
+} = usePagination(...)
+```
+
+### preload
+
+Method to preload the next 'page
+
+```Typescript
+const {
+  ...
+  preload
+} = usePagination(...)
+```
+
+## useInfiniteScrollRestoration
+
+Method to restore scroll in infinite scroll.
+
+```Typescript
+// useAction will probably be from a navigation/router package
+// Ex: import { useAction } from '@resourge/react-router';
+const action = useAction();
+// 'action' must be 'pop' for restoration to work;
+const [scrollRestoration, ref] = useInfiniteScrollRestoration(action);
+const {} = useInfiniteLoading(
+  ..., 
   {
-    sortTable
+    initialState: [],
+    scrollRestoration
   }
-] = useFetchPagination(...)
+);
 ```
 
-### createLocation
+## RefreshControl
 
-Creates `SearchLocation` from a `path` or `Location`
+Component to help useInfiniteScroll control the scroll.
 
 
 ```jsx
-import { createLocation } from '@resourge/react-hook-table';
+import React from 'react';
+import { useInfiniteLoading, RefreshControl } from '@resourge/react-hook-table';
 
-createLocation(location)
+export default function List() {
+  const {
+    //...
+	context,
 
-createLocation('/products?productId=10#hash')
+  } = useInfiniteLoading(
+    async ({ pagination, sort, filter }) => {
+      // fetch... use Http
+        
+      return await Promise.resolve({
+        data: [
+          { id: Math.random(), name: 'Apple' }
+        ],
+        totalItems: 10
+      })
+    },
+    {
+      initialState: [],
+  	  deps: [] // Extra dependencies
+    }
+  )
+
+  return (
+    <>
+      ...
+      <RefreshControl 
+        context={context}
+        renderComponent={({ isLastIncomplete, onClick }) => (
+          !isLastIncomplete 
+          ? (
+            <button
+              disabled={isLoading}
+              onClick={onClick}
+            >Get more</button>
+          ) : null
+        )}
+      />
+    </>
+  )
+}
 ```
 
-### createPath
-
-Creates path from `SearchLocation`
-
-```jsx
-import { createPath } from '@resourge/react-hook-table';
-
-createPath(searchLocation)
-```
-
-### parseParams
+## parseParams
 
 Params object into search path
 
@@ -348,7 +476,7 @@ parseParams({
 // ?productId=10&productName=Apple
 ```
 
-### parseSearch
+## parseSearch
 
 Converts search string into object.
 

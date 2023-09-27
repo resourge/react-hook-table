@@ -4,11 +4,14 @@ import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 import dts from 'rollup-plugin-dts';
 import filsesize from 'rollup-plugin-filesize';
+import { readFileSync } from 'fs'
 
-import packageJson from './package.json' assert { type: 'json' }
+const packageJson = JSON.parse(readFileSync('package.json', {
+	encoding: 'utf8'
+}));
 
 const {
-	name, author, license 
+	name, author, license
 } = packageJson
 
 const external = ['react', '@resourge/react-search-params', '@resourge/react-fetch'];
@@ -21,7 +24,7 @@ const babelPlugins = [
 	'babel-plugin-dev-expression'
 ]
 
-const babelPresetEnv = ['@babel/preset-env', { 
+const babelPresetEnv = ['@babel/preset-env', {
 	targets: [
 		'defaults',
 		'not IE 11',
@@ -55,7 +58,7 @@ function createBanner(libraryName, version, authorName, license) {
 }
 function capitalizeFirstLetter(string) {
 	return string.charAt(0)
-	.toUpperCase() + string.slice(1);
+		.toUpperCase() + string.slice(1);
 }
 
 function getName(name) {
@@ -90,8 +93,8 @@ const getPackage = (
 	const sourcemap = true;
 	const banner = createBanner(PROJECT_NAME, VERSION, AUTHOR_NAME, LICENSE);
 	const umdName = PROJECT_NAME.split('-')
-	.map(capitalizeFirstLetter)
-	.join('')
+		.map(capitalizeFirstLetter)
+		.join('')
 
 	// JS modules for bundlers
 	const modules = [
@@ -196,7 +199,7 @@ const getPackage = (
 				}),
 				terser({
 					ecma: 8,
-					safari10: true 
+					safari10: true
 				})
 			]
 		}

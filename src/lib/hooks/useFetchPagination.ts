@@ -4,34 +4,34 @@ import { type UseFetchState } from '@resourge/react-fetch/dist/hooks/useFetch'
 
 import {
 	type FilterType,
-	useFilter,
-	type UseFilterConfig,
-	type UseFilterDefaultValue,
-	type UseFilterReturn
-} from './useFilter'
+	useFilterSearchParams,
+	type UseFilterSearchParamsConfig,
+	type UseFilterSearchParamsDefaultValue,
+	type UseFilterSearchParamsReturn
+} from './useFilterSearchParams'
 import {
-	type PaginationParams,
-	usePagination,
-	type UsePaginationConfig,
-	type UsePaginationReturn
-} from './usePagination'
+	type PaginationSearchParams,
+	usePaginationSearchParams,
+	type UsePaginationSearchParamsConfig,
+	type UsePaginationSearchParamsReturn
+} from './usePaginationSearchParams'
 
-export type UseFetchPaginationConfig = UsePaginationConfig & UseFilterConfig & Omit<UseFetchStateConfig<any>, 'initialState'>
+export type UseFetchPaginationConfig = UsePaginationSearchParamsConfig & UseFilterSearchParamsConfig & Omit<UseFetchStateConfig<any>, 'initialState'>
 
 export type UseFetchPaginationTableMeta<
 	Filter extends Record<string, any> = Record<string, any>,
 	OrderColumn = string, 
 > = {
-	pagination: PaginationParams
-} & UseFilterDefaultValue<Filter, OrderColumn> 
+	pagination: PaginationSearchParams
+} & UseFilterSearchParamsDefaultValue<Filter, OrderColumn> 
 
 export type UseFetchPaginationDefaultValues<
 	Data,
 	OrderColumn = string, 
 	Filter extends Record<string, any> = Record<string, any>
-> = UseFilterDefaultValue<Filter, OrderColumn> & {
+> = UseFilterSearchParamsDefaultValue<Filter, OrderColumn> & {
 	initialState: Data
-	pagination?: PaginationParams
+	pagination?: PaginationSearchParams
 }
 
 export type UseFetchPaginationReturn<
@@ -43,14 +43,14 @@ export type UseFetchPaginationReturn<
 	 * useFetchPagination Data
 	 */
 	data: Data,
-	tableMeta: UsePaginationReturn & UseFilterReturn<Filter, OrderColumn> & {
+	tableMeta: UsePaginationSearchParamsReturn & UseFilterSearchParamsReturn<Filter, OrderColumn> & {
 		error: UseFetchState<any, any>['error']
 		isLoading: UseFetchState<any, any>['isLoading']
 		/**
 		 * Resets the pagination, sort and/or filter.
 		 */
 		reset: (newSearchParams?: Omit<UseFetchPaginationDefaultValues<Data, OrderColumn, Filter>, 'initialState'>) => void
-		setData: UseFetchState<any, any>['setData']
+		setFetchState: UseFetchState<any, any>['setFetchState']
 	},
 	/** 
 	 * Refetch method.
@@ -58,6 +58,9 @@ export type UseFetchPaginationReturn<
 	fetch: () => Promise<Data>
 ]
 
+/**
+ * @deprecated use usePagination, simpler syntax
+ */
 export const useFetchPagination = <
 	OrderColumn, 
 	Data,
@@ -76,13 +79,13 @@ export const useFetchPagination = <
 	}: UseFetchPaginationDefaultValues<Data, OrderColumn, Filter>,
 	config?: UseFetchPaginationConfig
 ): UseFetchPaginationReturn<Data, OrderColumn, Filter> => {
-	const { pagination, ...paginationMethods } = usePagination(
+	const { pagination, ...paginationMethods } = usePaginationSearchParams(
 		defaultPagination, 
 		config
 	);
 	const {
 		url, filter, sort, ...filterMethods 
-	} = useFilter<Filter, OrderColumn>(
+	} = useFilterSearchParams<Filter, OrderColumn>(
 		{
 			...defaultPagination,
 			...defaultFilter 
@@ -95,7 +98,7 @@ export const useFetchPagination = <
 		error,
 		fetch,
 		isLoading,
-		setData
+		setFetchState
 	} = useFetch(
 		async () => {
 			const { data, totalItems } = await method({
@@ -142,7 +145,7 @@ export const useFetchPagination = <
 				});
 			},
 			reset,
-			setData
+			setFetchState
 		},
 		fetch
 	]

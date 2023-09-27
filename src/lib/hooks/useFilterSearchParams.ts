@@ -6,9 +6,9 @@ import { type SearchConfig, useSearchParams } from '@resourge/react-search-param
 import { type OrderByEnum, type SortCriteria } from '../types/SortCriteria';
 import { navigate } from '../utils/setDefaultNavigation';
 
-export type UseFilterConfig = SearchConfig
+export type UseFilterSearchParamsConfig = Pick<SearchConfig<Record<string, any>>, 'hash'>
 
-export type UseFilterDefaultValue<T extends Record<string, any>, OrderColumn = string> = {
+export type UseFilterSearchParamsDefaultValue<T extends Record<string, any>, OrderColumn = string> = {
 	filter?: T
 	sort?: SortCriteria<OrderColumn>
 }
@@ -18,7 +18,7 @@ export type FilterType<
 	T extends Record<string, any>
 > = Partial<T & SortCriteria<OrderColumn>>
 
-export type UseFilterReturn<Filter extends Record<string, any>, OrderColumn = string> = {
+export type UseFilterSearchParamsReturn<Filter extends Record<string, any>, OrderColumn = string> = {
 	filter: Filter
 	/**
 	 * Method to updates filters.
@@ -35,14 +35,14 @@ export type UseFilterReturn<Filter extends Record<string, any>, OrderColumn = st
 	sort?: SortCriteria<OrderColumn>
 }
 
-export const useFilter = <Filter extends Record<string, any>, OrderColumn = string>(
+export const useFilterSearchParams = <Filter extends Record<string, any>, OrderColumn = string>(
 	{
 		filter: defaultFilter, sort: defaultSort, ...rest 
-	}: UseFilterDefaultValue<Filter, OrderColumn>,
-	{ hash = false }: UseFilterConfig = {
+	}: UseFilterSearchParamsDefaultValue<Filter, OrderColumn>,
+	{ hash = false }: UseFilterSearchParamsConfig = {
 		hash: false 
 	}
-): UseFilterReturn<Filter, OrderColumn> => {
+): UseFilterSearchParamsReturn<Filter, OrderColumn> => {
 	const [
 		{
 			params,
@@ -57,7 +57,8 @@ export const useFilter = <Filter extends Record<string, any>, OrderColumn = stri
 			...rest
 		} as FilterType<OrderColumn, Filter>,
 		{
-			hash
+			hash,
+			filterKeys: ['page', 'perPage', 'orderBy', 'orderColumn']
 		}
 	);
 

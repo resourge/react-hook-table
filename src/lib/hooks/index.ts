@@ -5,46 +5,68 @@ import {
 	type UseFetchPaginationDefaultValues,
 	type UseFetchPaginationReturn
 } from './useFetchPagination'
-import { useFilter } from './useFilter';
+import { useFilterSearchParams } from './useFilterSearchParams';
 import type { 
-	UseFilterConfig,
-	UseFilterDefaultValue,
+	UseFilterSearchParamsConfig,
+	UseFilterSearchParamsDefaultValue,
 	FilterType,
-	UseFilterReturn 
-} from './useFilter';
-import { usePagination } from './usePagination';
-import type {
-	UsePaginationConfig,
-	PaginationParams,
-	Pagination,
-	UsePaginationReturn
+	UseFilterSearchParamsReturn 
+} from './useFilterSearchParams';
+import {
+	useInfiniteLoading,
+	type UseInfiniteLoadingDefaultValues,
+	type UseInfiniteLoadingReturn,
+	type UseInfiniteLoadingTableMeta
+} from './useInfiniteLoading'
+import { useInfiniteScrollRestoration, type InfiniteScrollRestoration } from './useInfiniteScrollRestoration'
+import {
+	usePagination,
+	type UsePaginationConfig,
+	type UsePaginationReturn,
+	type UsePaginationTableMeta
 } from './usePagination'
-import { useSearchParams } from './useSearchParams';
-import type { UseSearchParamsConfig, SearchParamsFunctions } from './useSearchParams';
+import { usePaginationSearchParams } from './usePaginationSearchParams';
+import type {
+	UsePaginationSearchParamsConfig,
+	PaginationSearchParams,
+	Pagination,
+	UsePaginationSearchParamsReturn
+} from './usePaginationSearchParams'
 
 export {
-	useSearchParams,
-
 	useFetchPagination, 
 
-	useFilter, 
+	usePagination,
 
-	usePagination
+	useInfiniteLoading,
+
+	useFilterSearchParams, 
+
+	usePaginationSearchParams,
+	useInfiniteScrollRestoration
+	
 };
 
 export type {
-	UseSearchParamsConfig,
-	SearchParamsFunctions,
 	UseFetchPaginationConfig,
 	UseFetchPaginationTableMeta,
 	UseFetchPaginationDefaultValues,
 	UseFetchPaginationReturn,
-	UseFilterConfig,
-	UseFilterDefaultValue,
+	UseFilterSearchParamsConfig,
+	UseFilterSearchParamsDefaultValue,
 	FilterType,
-	UseFilterReturn,
-	UsePaginationConfig,
-	PaginationParams,
+	UseFilterSearchParamsReturn,
+	UsePaginationSearchParamsConfig,
+	PaginationSearchParams,
 	Pagination,
-	UsePaginationReturn
+	UsePaginationSearchParamsReturn,
+
+	UsePaginationConfig,
+	UsePaginationReturn,
+	UsePaginationTableMeta,
+
+	UseInfiniteLoadingDefaultValues,
+	UseInfiniteLoadingReturn,
+	UseInfiniteLoadingTableMeta,
+	InfiniteScrollRestoration
 }
