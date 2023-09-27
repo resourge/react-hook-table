@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/resourge/react-hook-table/compare/v2.2.4...v2.3.0) (2023-09-27)
+
+
+### Features
+
+* **usepagination and useinfiniteloading:** add usePagination  and useInfiniteLoading ([6922cdd](https://github.com/resourge/react-hook-table/commit/6922cdd1a5dedec0810cef21e2f793709d9e1a50))
+
 ## [2.2.4](https://github.com/resourge/react-hook-table/compare/v2.2.3...v2.2.4) (2023-03-09)
 
 
