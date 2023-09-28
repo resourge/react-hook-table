@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/resourge/react-hook-table/compare/v2.3.0...v2.3.1) (2023-09-28)
+
+
+### Bug Fixes
+
+* **usefiltersearchparams:** remove orderBy and ordecolumn from filterkeys ([c2511cc](https://github.com/resourge/react-hook-table/commit/c2511ccfb2c89f491f52590515aa87f6fd5b5f87))
+
 # [2.3.0](https://github.com/resourge/react-hook-table/compare/v2.2.4...v2.3.0) (2023-09-27)
 
 
