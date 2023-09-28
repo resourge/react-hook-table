@@ -58,7 +58,7 @@ export const useFilterSearchParams = <Filter extends Record<string, any>, OrderC
 		} as FilterType<OrderColumn, Filter>,
 		{
 			hash,
-			filterKeys: ['page', 'perPage', 'orderBy', 'orderColumn']
+			filterKeys: ['page', 'perPage']
 		}
 	);
 
