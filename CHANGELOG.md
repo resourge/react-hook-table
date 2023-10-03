@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/resourge/react-hook-table/compare/v2.3.2...v2.3.3) (2023-10-03)
+
+
+### Bug Fixes
+
+* **refreshcontrol:** fix react not being imported ([e5d136e](https://github.com/resourge/react-hook-table/commit/e5d136ecee0fcc0cc43db0996b30272e6b79a8d0))
+
 ## [2.3.2](https://github.com/resourge/react-hook-table/compare/v2.3.1...v2.3.2) (2023-10-03)
 
 
