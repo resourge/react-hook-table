@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useRef } from 'react';
+import React, { type ReactNode, useEffect, useRef } from 'react';
 
 import { type UseInfiniteLoadingReturn } from 'src/lib/hooks/useInfiniteLoading';
 
