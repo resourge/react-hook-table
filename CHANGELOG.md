@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/resourge/react-hook-table/compare/v2.3.1...v2.3.2) (2023-10-03)
+
+
+### Bug Fixes
+
+* **refreshcontrol:** fix RefreshControl not being included in the bundle ([e432254](https://github.com/resourge/react-hook-table/commit/e4322543da92439ce19778aa483894aa09137cba))
+
 ## [2.3.1](https://github.com/resourge/react-hook-table/compare/v2.3.0...v2.3.1) (2023-09-28)
 
 
