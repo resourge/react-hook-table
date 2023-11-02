@@ -139,6 +139,7 @@ export const usePagination = <
 		setFilter: (newFilter: FilterType<OrderColumn, Filter>) => {
 			filterMethods.setFilter({
 				...newFilter,
+				perPage: pagination.perPage,
 				page: 0
 			});
 		},
