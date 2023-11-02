@@ -1,3 +1,10 @@
+## [2.3.4](https://github.com/resourge/react-hook-table/compare/v2.3.3...v2.3.4) (2023-11-02)
+
+
+### Bug Fixes
+
+* **usepagination:** on setFilter save perPage that was removed on previous versions ([81cc6f1](https://github.com/resourge/react-hook-table/commit/81cc6f14c93906d390238208b05f5de504f42aaf))
+
 ## [2.3.3](https://github.com/resourge/react-hook-table/compare/v2.3.2...v2.3.3) (2023-10-03)
 
 
