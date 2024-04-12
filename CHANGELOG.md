@@ -1,3 +1,11 @@
+## [2.3.5](https://github.com/resourge/react-hook-table/compare/v2.3.4...v2.3.5) (2024-04-12)
+
+
+### Bug Fixes
+
+* **scripts:** fix script ([aa9e502](https://github.com/resourge/react-hook-table/commit/aa9e502bd86a4cec4091da9b507acbe028e1c235))
+* **usepagination:** update useFetch to fix isLoading and error ([2cb45e2](https://github.com/resourge/react-hook-table/commit/2cb45e227f5cc3e1918890c61bc6bc5053b21354))
+
 ## [2.3.4](https://github.com/resourge/react-hook-table/compare/v2.3.3...v2.3.4) (2023-11-02)
 
 
