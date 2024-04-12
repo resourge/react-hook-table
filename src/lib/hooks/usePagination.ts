@@ -92,13 +92,7 @@ export const usePagination = <
 		config
 	);
 	
-	const {
-		data,
-		error,
-		fetch,
-		isLoading,
-		setFetchState
-	} = useFetch(
+	const fetchResult = useFetch(
 		async () => {
 			const { data, totalItems } = await method({
 				pagination,
@@ -128,9 +122,13 @@ export const usePagination = <
 	}
 
 	return {
-		data,
-		error,
-		isLoading,
+		data: fetchResult.data,
+		get error() {
+			return fetchResult.error;
+		},
+		get isLoading() {
+			return fetchResult.isLoading;
+		},
 		filter,
 		sort,
 		pagination,
@@ -144,7 +142,7 @@ export const usePagination = <
 			});
 		},
 		reset,
-		setPaginationState: setFetchState,
-		fetch
+		setPaginationState: fetchResult.setFetchState,
+		fetch: fetchResult.fetch
 	}
 }

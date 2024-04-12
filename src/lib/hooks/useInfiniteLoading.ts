@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useFetch, type UseFetchStateConfig } from '@resourge/react-fetch';
 import { type UseFetchState } from '@resourge/react-fetch/dist/hooks/useFetch';
@@ -139,14 +139,10 @@ export const useInfiniteLoading = <
 		}, 
 		config
 	);
+
+	const deps = config?.deps ? [filter, sort, ...config.deps] : [filter, sort];
 	
-	const {
-		data,
-		error,
-		fetch,
-		isLoading,
-		setFetchState
-	} = useFetch(
+	const fetchResult = useFetch(
 		async () => {
 			const scrollRestorationData = internalDataRef.current.isFirstTime && _scrollRestoration 
 				? _scrollRestoration.getPage() 
@@ -215,29 +211,29 @@ export const useInfiniteLoading = <
 			initialState,
 			...config,
 			scrollRestoration,
-			onDepsChange: () => {
-				internalDataRef.current.data = [];
-				internalDataRef.current.nextData = {};
-				paginationRef.current.pagination.page = 0;
-
-				config.onDepsChange && config.onDepsChange();
-			},
-			deps: config?.deps ? [filter, sort, ...config.deps] : [filter, sort]
+			deps
 		}
 	);
+
+	useEffect(() => {
+		internalDataRef.current.data = [];
+		internalDataRef.current.nextData = {};
+		paginationRef.current.pagination.page = 0;
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, deps)
 
 	const changeItemsPerPage = (perPage: number) => {
 		paginationRef.current.pagination.perPage = perPage;
 		paginationRef.current.pagination.page = 0;
 		internalDataRef.current.data = [];
 
-		fetch();
+		fetchResult.fetch();
 	};
 
 	const changePage = (page: number) => {
 		paginationRef.current.pagination.page = page;
 
-		fetch();
+		fetchResult.fetch();
 	};
 
 	const changeTotalPages = (totalItems: number) => {
@@ -263,11 +259,11 @@ export const useInfiniteLoading = <
 		}
 	};
 
-	const isLastIncomplete = internalDataRef.current.isFirstTime ? false : (data.length !== ((paginationRef.current.pagination.page + 1) * paginationRef.current.pagination.perPage));
+	const isLastIncomplete = internalDataRef.current.isFirstTime ? false : (fetchResult.data.length !== ((paginationRef.current.pagination.page + 1) * paginationRef.current.pagination.perPage));
 
 	const loadMore = () => {
 		if ( isLastIncomplete ) {
-			fetch();
+			fetchResult.fetch();
 			return;
 		}
 		changePage(paginationRef.current.pagination.page + 1);
@@ -286,11 +282,15 @@ export const useInfiniteLoading = <
 	};
 
 	const _context: UseInfiniteLoadingReturn<Data, OrderColumn, Filter> = {
-		data,
+		data: fetchResult.data,
 		preload,
 		isLast: paginationRef.current.pagination.page >= (paginationRef.current.totalPages - 1),
-		error,
-		isLoading,
+		get error() {
+			return fetchResult.error
+		},
+		get isLoading() {
+			return fetchResult.isLoading
+		},
 		filter,
 		sort,
 		isLastIncomplete,
@@ -300,8 +300,8 @@ export const useInfiniteLoading = <
 		url,
 		setFilter,
 		reset,
-		setFetchState,
-		fetch,
+		setFetchState: fetchResult.setFetchState,
+		fetch: fetchResult.fetch,
 		get context() {
 			return _context;
 		}
